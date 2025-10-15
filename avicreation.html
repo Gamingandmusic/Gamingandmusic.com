@@ -1,30 +1,96 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>  
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>aviwork</title>
+    <title>Avatar Work | Gamingandmusic</title>
     <link rel="icon" href="images/favicon.png" type="image/x-icon">
     <style>
         body {
-            background-color: black;
-            color: rgb(255, 0, 0); /* Optional: to make text readable on black background */}
-       
-    </style>   
+            background: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            width: 100vw;
+            box-sizing: border-box;
+        }
+        .container {
+            text-align: center;
+            width: 100vw;
+            max-width: 100vw;
+            min-width: 320px;
+            padding: 0;
+            margin: 0;
+        }
+        h1 {
+            color: #ff0000;
+            font-size: 5vw;
+            margin-top: 7vh;
+            margin-bottom: 3vh;
+            letter-spacing: 2px;
+        }
+        .gallery {
+            display: flex;
+            gap: 3vw;
+            justify-content: center;
+            margin-bottom: 5vh;
+            flex-wrap: wrap;
+        }
+        .gallery img {
+            width: 18vw;
+            max-width: 320px;
+            min-width: 120px;
+            height: 18vw;
+            max-height: 320px;
+            min-height: 120px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 6px solid #ff0000;
+            box-shadow: 0 4px 16px #222;
+            background: #222;
+            transition: transform 0.2s;
+        }
+        .gallery img:hover {
+            transform: scale(1.07);
+            border-color: #fff;
+        }
+        .contact {
+            color: #ff0000;
+            font-size: 2vw;
+            margin-bottom: 5vh;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .home-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #fff;
+            background: #ff0000;
+            padding: 2vw 5vw;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 2vw;
+            transition: background 0.2s;
+        }
+        .home-link:hover {
+            background: #c20000;
+        }
+    </style>
 </head>
 <body>
-    <div style="text-align: center;">
-        <h1 style="font-family: Arial, sans-serif;">examples of my work</h1>
-        <img src="images/blue rex.png">
-        <img src="images/Mayu.png">
-        <img src="images/kitfox.png">
-        <br>
-        <p style="color: rgb(255, 0, 0); font-family: Arial, sans-serif;">Contact at gamingandmusiccontact@gmail.com</p>
-        <h2><a href="index.html" style="color: rgb(255, 255, 255); font-family: Arial, sans-serif;">Home</a></h2>
-
+    <div class="container">
+        <h1>Examples of my work</h1>
+        <div class="gallery">
+            <img src="images/blue rex.png" alt="Blue Rex">
+            <img src="images/Mayu.png" alt="Mayu">
+            <img src="images/kitfox.png" alt="Kitfox">
+        </div>
+        <div class="contact">Contact: <a href="mailto:gamingandmusiccontact@gmail.com" style="color:#fff;text-decoration:underline;">gamingandmusiccontact@gmail.com</a></div>
+    <a class="home-link" href="index.html">Home</a>
+    <hr style="height:6px; background:#ff0000; border:none; margin:18px 0 0 0; width:100%; max-width:100vw;">
     </div>
-
 </body>
-
-        </body>
 </html>
