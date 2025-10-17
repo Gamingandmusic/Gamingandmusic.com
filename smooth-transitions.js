@@ -1,5 +1,12 @@
 // Smooth page transitions and interactive effects
 document.addEventListener('DOMContentLoaded', function() {
+    // Very rare chance to play flashbang sound on startup (1 in 100)
+    if (Math.random() < 0.01) {
+        const audio = new Audio('audio/Flashbang Sound Effect.mp3');
+        audio.volume = 0.5;
+        audio.play().catch(err => console.log('Audio playback prevented:', err));
+    }
+
     // Add smooth fade-in effect to page load
     document.body.style.opacity = '1';
     
