@@ -7,7 +7,7 @@ Disallow: /audio/
 Disallow: /*.mp3$
 
 # Sitemap location
-Sitemap: https://gamingandmusic.github.io/sitemap.xml
+Sitemap: https://gamingandmusic.com/sitemap.xml
 
 # Crawl delay (optional - helps with server load)
 Crawl-delay: 1
