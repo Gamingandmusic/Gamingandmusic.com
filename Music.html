@@ -410,7 +410,26 @@
             </div>
         </div>
     </footer>
+    <script>
+        // Immediate blocking - don't wait for DOMContentLoaded
+        if (!window.location.pathname.includes('Live.html')) {
+            console.log('Immediate block: hiding content');
+            document.addEventListener('DOMContentLoaded', function() {
+                const footer = document.querySelector('footer');
+                if (footer) footer.style.display = 'none';
+
+                const container = document.querySelector('.container');
+                if (container) {
+                    Array.from(container.children).forEach(child => {
+                        if (!child.classList.contains('cf-turnstile')) {
+                            child.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        }
+    </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <script src="smooth-transitions.js"></script>
+    <script src="smooth-transitions.js?v=2"></script>
 </body>
 </html>

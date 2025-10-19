@@ -70,18 +70,20 @@ document.addEventListener('DOMContentLoaded', function() {
     window.onTurnstileSuccess = function(token) {
         console.log('Turnstile verification successful!', token);
         verificationComplete = true;
+
+        // Hide widget
         const widget = document.querySelector('.cf-turnstile');
         if (widget) {
-            widget.style.opacity = '0';
-            widget.style.transition = 'opacity 0.3s ease-out';
-            setTimeout(() => {
-                widget.style.display = 'none';
-            }, 300);
+            widget.style.display = 'none';
         }
+
         // Unlock page content
         console.log('Unlocking page content...');
         unlockPageContent();
     };
+
+    // Make it globally accessible
+    window.onTurnstileSuccess = window.onTurnstileSuccess;
 
     // Fallback: Monitor for widget state changes
     if (window.turnstile) {
