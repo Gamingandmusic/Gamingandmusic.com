@@ -14,6 +14,12 @@ let verificationComplete = false;
 function unlockPageContent() {
     console.log('unlockPageContent called');
 
+    // Hide turnstile widget
+    const widget = document.querySelector('.cf-turnstile');
+    if (widget) {
+        widget.style.display = 'none';
+    }
+
     // Show container
     const container = document.querySelector('.container');
     if (container) {
