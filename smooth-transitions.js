@@ -4,7 +4,18 @@ const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/
 const isTouch = () => window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Check if Live.html - if so, skip verification requirement
+const isLivePage = window.location.pathname.includes('Live.html');
+
+// Block content until Cloudflare verification
+let verificationComplete = false;
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Block all interactive elements until verification is complete (except on Live.html)
+    if (!isLivePage) {
+        blockPageContent();
+    }
+
     // Very rare chance to play flashbang sound on startup (1 in 20)
     if (Math.random() < 0.05) {
         const audio = new Audio('audio/Flashbang Sound Effect.mp3');
@@ -12,8 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
         audio.play().catch(err => console.log('Audio playback prevented:', err));
     }
 
-    // Hide Cloudflare Turnstile widget after completion
+    // Hide Cloudflare Turnstile widget after completion and unlock content
     window.onTurnstileSuccess = function(token) {
+        verificationComplete = true;
         const widget = document.querySelector('.cf-turnstile');
         if (widget) {
             widget.style.opacity = '0';
@@ -22,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 widget.style.display = 'none';
             }, 300);
         }
+        // Unlock page content
+        unlockPageContent();
     };
 
     // Fallback: Monitor for widget state changes
@@ -246,6 +260,82 @@ style.textContent = `
             border-width: 1px;
         }
     }
+
+    /* Verification overlay styles */
+    .verification-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        pointer-events: auto;
+    }
+
+    .verification-overlay.hidden {
+        display: none;
+        pointer-events: none;
+    }
+
+    .page-content.blocked {
+        pointer-events: none;
+        opacity: 0.5;
+        filter: blur(2px);
+    }
+
+    .page-content.blocked a,
+    .page-content.blocked button {
+        cursor: not-allowed;
+    }
 `;
 document.head.appendChild(style);
+
+// Function to block page content
+function blockPageContent() {
+    // Add overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'verification-overlay';
+    overlay.innerHTML = '<p style="color: #fff; text-align: center; font-size: 1.2em;">Please complete the verification to continue</p>';
+    document.body.appendChild(overlay);
+
+    // Block main content
+    const container = document.querySelector('.container');
+    if (container) {
+        container.classList.add('blocked');
+    }
+
+    // Disable all links and buttons
+    document.querySelectorAll('a, button').forEach(el => {
+        el.style.pointerEvents = 'none';
+        el.style.opacity = '0.5';
+    });
+}
+
+// Function to unlock page content
+function unlockPageContent() {
+    // Remove overlay
+    const overlay = document.querySelector('.verification-overlay');
+    if (overlay) {
+        overlay.classList.add('hidden');
+        setTimeout(() => overlay.remove(), 300);
+    }
+
+    // Unblock main content
+    const container = document.querySelector('.container');
+    if (container) {
+        container.classList.remove('blocked');
+        container.style.filter = 'none';
+        container.style.opacity = '1';
+    }
+
+    // Enable all links and buttons
+    document.querySelectorAll('a, button').forEach(el => {
+        el.style.pointerEvents = 'auto';
+        el.style.opacity = '1';
+    });
+}
 
