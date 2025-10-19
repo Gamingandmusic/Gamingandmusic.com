@@ -13,30 +13,69 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Hide Cloudflare Turnstile widget after completion
-    if (window.turnstile) {
-        window.turnstile.ready(function() {
-            const observer = new MutationObserver(function(mutations) {
-                const widget = document.querySelector('.cf-turnstile');
-                if (widget && widget.getAttribute('data-state') === 'managed') {
-                    widget.style.display = 'none';
-                    observer.disconnect();
-                }
-            });
-
-            const widget = document.querySelector('.cf-turnstile');
-            if (widget) {
-                observer.observe(widget, { attributes: true, attributeFilter: ['data-state'] });
-            }
-        });
-    }
-
-    // Alternative: Hide after token is received
     window.onTurnstileSuccess = function(token) {
         const widget = document.querySelector('.cf-turnstile');
         if (widget) {
-            widget.style.display = 'none';
+            widget.style.opacity = '0';
+            widget.style.transition = 'opacity 0.3s ease-out';
+            setTimeout(() => {
+                widget.style.display = 'none';
+            }, 300);
         }
     };
+
+    // Fallback: Monitor for widget state changes
+    if (window.turnstile) {
+        window.turnstile.ready(function() {
+            // Check periodically if widget is completed
+            const checkInterval = setInterval(function() {
+                const widget = document.querySelector('.cf-turnstile');
+                if (!widget) {
+                    clearInterval(checkInterval);
+                    return;
+                }
+
+                // Check if widget has the success class or data attribute
+                if (widget.classList.contains('success') ||
+                    widget.getAttribute('data-state') === 'managed' ||
+                    widget.querySelector('[data-state="managed"]')) {
+                    clearInterval(checkInterval);
+                    window.onTurnstileSuccess();
+                }
+            }, 100);
+
+            // Stop checking after 60 seconds
+            setTimeout(() => clearInterval(checkInterval), 60000);
+        });
+    }
+
+    // Additional fallback: Use MutationObserver for DOM changes
+    const widget = document.querySelector('.cf-turnstile');
+    if (widget) {
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                // Check if any child elements were added/removed (indicating completion)
+                if (mutation.type === 'childList' || mutation.type === 'attributes') {
+                    const currentWidget = document.querySelector('.cf-turnstile');
+                    if (currentWidget && (
+                        currentWidget.querySelector('iframe[title*="success"]') ||
+                        currentWidget.querySelector('[data-state="managed"]') ||
+                        currentWidget.classList.contains('success')
+                    )) {
+                        observer.disconnect();
+                        window.onTurnstileSuccess();
+                    }
+                }
+            });
+        });
+
+        observer.observe(widget, {
+            childList: true,
+            attributes: true,
+            subtree: true,
+            attributeFilter: ['data-state', 'class']
+        });
+    }
 
     // Add smooth fade-in effect to page load
     document.body.style.opacity = '1';
