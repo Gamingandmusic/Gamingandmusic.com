@@ -7,6 +7,32 @@ document.addEventListener('DOMContentLoaded', function() {
         audio.play().catch(err => console.log('Audio playback prevented:', err));
     }
 
+    // Hide Cloudflare Turnstile widget after completion
+    if (window.turnstile) {
+        window.turnstile.ready(function() {
+            const observer = new MutationObserver(function(mutations) {
+                const widget = document.querySelector('.cf-turnstile');
+                if (widget && widget.getAttribute('data-state') === 'managed') {
+                    widget.style.display = 'none';
+                    observer.disconnect();
+                }
+            });
+
+            const widget = document.querySelector('.cf-turnstile');
+            if (widget) {
+                observer.observe(widget, { attributes: true, attributeFilter: ['data-state'] });
+            }
+        });
+    }
+
+    // Alternative: Hide after token is received
+    window.onTurnstileSuccess = function(token) {
+        const widget = document.querySelector('.cf-turnstile');
+        if (widget) {
+            widget.style.display = 'none';
+        }
+    };
+
     // Add smooth fade-in effect to page load
     document.body.style.opacity = '1';
     
