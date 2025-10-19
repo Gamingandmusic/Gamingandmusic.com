@@ -391,12 +391,20 @@
             });
         } else if (window.isVerified) {
             document.addEventListener('DOMContentLoaded', function() {
+                const footer = document.querySelector('footer');
+                if (footer) footer.style.display = 'block';
+                const container = document.querySelector('.container');
+                if (container) {
+                    Array.from(container.children).forEach(child => {
+                        child.style.display = 'block';
+                    });
+                }
                 const widget = document.querySelector('.cf-turnstile');
                 if (widget) widget.remove();
             });
         }
     </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <script src="smooth-transitions.js?v=3"></script>
+    <script src="smooth-transitions.js?v=4"></script>
 </body>
 </html>

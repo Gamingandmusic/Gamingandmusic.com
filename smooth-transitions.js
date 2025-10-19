@@ -39,14 +39,14 @@ function unlockPageContent() {
     // Show footer
     const footer = document.querySelector('footer');
     if (footer) {
-        footer.style.display = '';
+        footer.style.display = 'block';
     }
 
     // Show container content
     const container = document.querySelector('.container');
     if (container) {
         Array.from(container.children).forEach(child => {
-            child.style.display = '';
+            child.style.display = 'block';
         });
     }
 }
