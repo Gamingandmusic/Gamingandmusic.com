@@ -4,124 +4,12 @@ const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/
 const isTouch = () => window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Check if Live.html - if so, skip verification requirement
-const isLivePage = window.location.pathname.includes('Live.html');
-
-// Block content until Cloudflare verification
-let verificationComplete = false;
-
-// Function to unlock page content
-function unlockPageContent() {
-    console.log('unlockPageContent called');
-
-    // Hide turnstile widget
-    const widget = document.querySelector('.cf-turnstile');
-    if (widget) {
-        widget.style.display = 'none';
-    }
-
-    // Show container
-    const container = document.querySelector('.container');
-    if (container) {
-        container.style.display = 'block';
-    }
-
-    // Show footer
-    const footer = document.querySelector('footer');
-    if (footer) {
-        footer.style.display = 'block';
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOMContentLoaded - isLivePage:', isLivePage);
-    // Block all interactive elements until verification is complete (except on Live.html)
-    if (!isLivePage) {
-        console.log('Blocking page content...');
-        blockPageContent();
-    }
-
     // Very rare chance to play flashbang sound on startup (1 in 20)
     if (Math.random() < 0.05) {
         const audio = new Audio('audio/Flashbang Sound Effect.mp3');
         audio.volume = 0.5;
         audio.play().catch(err => console.log('Audio playback prevented:', err));
-    }
-
-    // Hide Cloudflare Turnstile widget after completion and unlock content
-    window.onTurnstileSuccess = function(token) {
-        console.log('Turnstile verification successful!', token);
-        verificationComplete = true;
-
-        // Save verification status to localStorage
-        localStorage.setItem('cloudflare-verified', 'true');
-        console.log('Verification saved to localStorage');
-
-        // Remove widget completely
-        const widget = document.querySelector('.cf-turnstile');
-        if (widget) {
-            widget.remove();
-        }
-
-        // Unlock page content
-        console.log('Unlocking page content...');
-        unlockPageContent();
-    };
-
-    // Make it globally accessible
-    window.onTurnstileSuccess = window.onTurnstileSuccess;
-
-    // Fallback: Monitor for widget state changes
-    if (window.turnstile) {
-        window.turnstile.ready(function() {
-            // Check periodically if widget is completed
-            const checkInterval = setInterval(function() {
-                const widget = document.querySelector('.cf-turnstile');
-                if (!widget) {
-                    clearInterval(checkInterval);
-                    return;
-                }
-
-                // Check if widget has the success class or data attribute
-                if (widget.classList.contains('success') ||
-                    widget.getAttribute('data-state') === 'managed' ||
-                    widget.querySelector('[data-state="managed"]')) {
-                    clearInterval(checkInterval);
-                    window.onTurnstileSuccess();
-                }
-            }, 100);
-
-            // Stop checking after 60 seconds
-            setTimeout(() => clearInterval(checkInterval), 60000);
-        });
-    }
-
-    // Additional fallback: Use MutationObserver for DOM changes
-    const widget = document.querySelector('.cf-turnstile');
-    if (widget) {
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                // Check if any child elements were added/removed (indicating completion)
-                if (mutation.type === 'childList' || mutation.type === 'attributes') {
-                    const currentWidget = document.querySelector('.cf-turnstile');
-                    if (currentWidget && (
-                        currentWidget.querySelector('iframe[title*="success"]') ||
-                        currentWidget.querySelector('[data-state="managed"]') ||
-                        currentWidget.classList.contains('success')
-                    )) {
-                        observer.disconnect();
-                        window.onTurnstileSuccess();
-                    }
-                }
-            });
-        });
-
-        observer.observe(widget, {
-            childList: true,
-            attributes: true,
-            subtree: true,
-            attributeFilter: ['data-state', 'class']
-        });
     }
 
     // Add smooth fade-in effect to page load
@@ -294,36 +182,7 @@ style.textContent = `
         }
     }
 
-    /* Verification overlay styles */
-    .verification-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        pointer-events: auto;
-    }
 
-    .verification-overlay.hidden {
-        display: none;
-        pointer-events: none;
-    }
-
-    .page-content.blocked {
-        pointer-events: none;
-        opacity: 0.5;
-        filter: blur(2px);
-    }
-
-    .page-content.blocked a,
-    .page-content.blocked button {
-        cursor: not-allowed;
-    }
 `;
 document.head.appendChild(style);
 

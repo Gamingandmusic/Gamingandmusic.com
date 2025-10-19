@@ -325,7 +325,15 @@
     </style>
 </head>
 <body>
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAAB7alvj5MFuaJeVq" data-callback="onTurnstileSuccess" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;"></div>
+    <!-- Cloudflare Turnstile Verification Modal -->
+    <div id="verification-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+        <div style="text-align: center; color: white; padding: 40px;">
+            <h2>Verify You're Human</h2>
+            <p>Complete the verification below to continue</p>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAB7alvj5MFuaJeVq" data-callback="onTurnstileSuccess" style="display: flex; justify-content: center; margin: 20px 0;"></div>
+        </div>
+    </div>
+
     <div class="container">
         <h1>Welcome to my website</h1>
         <img class="avatar" src="images/Gaming-image.png" alt="Gaming Icon">
@@ -357,32 +365,45 @@
         </div>
     </footer>
     <script>
-        window.isVerified = localStorage.getItem('cloudflare-verified') === 'true';
         window.isLivePage = window.location.pathname.includes('Live.html');
 
-        if (!window.isLivePage && !window.isVerified) {
-            // Hide container and footer, show turnstile
-            document.addEventListener('DOMContentLoaded', function() {
+        // Cloudflare Turnstile callback
+        window.onTurnstileSuccess = function(token) {
+            console.log('Turnstile verified with token:', token);
+            localStorage.setItem('verified', 'true');
+
+            // Hide modal and show content
+            document.getElementById('verification-modal').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+            document.querySelector('footer').style.display = 'block';
+        };
+
+        // Check verification on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.isLivePage) {
+                const isVerified = localStorage.getItem('verified') === 'true';
+                const modal = document.getElementById('verification-modal');
                 const container = document.querySelector('.container');
-                if (container) container.style.display = 'none';
                 const footer = document.querySelector('footer');
-                if (footer) footer.style.display = 'none';
-                const widget = document.querySelector('.cf-turnstile');
-                if (widget) widget.style.display = 'flex';
-            });
-        } else if (window.isVerified) {
-            // Show everything and hide turnstile for returning users
-            document.addEventListener('DOMContentLoaded', function() {
-                const container = document.querySelector('.container');
-                if (container) container.style.display = 'block';
-                const footer = document.querySelector('footer');
-                if (footer) footer.style.display = 'block';
-                const widget = document.querySelector('.cf-turnstile');
-                if (widget) widget.style.display = 'none';
-            });
-        }
+
+                if (!isVerified) {
+                    // Show modal, hide content
+                    modal.style.display = 'flex';
+                    container.style.display = 'none';
+                    footer.style.display = 'none';
+                } else {
+                    // Hide modal, show content
+                    modal.style.display = 'none';
+                    container.style.display = 'block';
+                    footer.style.display = 'block';
+                }
+            }
+        });
     </script>
+
+    <!-- Cloudflare Turnstile Script -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <script src="smooth-transitions.js?v=6"></script>
+    <script src="smooth-transitions.js?v=9"></script>
+    <script src="smooth-transitions.js?v=8"></script>
 </body>
 </html>
