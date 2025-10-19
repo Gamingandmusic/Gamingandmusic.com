@@ -10,6 +10,51 @@ const isLivePage = window.location.pathname.includes('Live.html');
 // Block content until Cloudflare verification
 let verificationComplete = false;
 
+// Function to block page content
+function blockPageContent() {
+    // Add overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'verification-overlay';
+    overlay.innerHTML = '<p style="color: #fff; text-align: center; font-size: 1.2em;">Please complete the verification to continue</p>';
+    document.body.appendChild(overlay);
+
+    // Block main content
+    const container = document.querySelector('.container');
+    if (container) {
+        container.classList.add('blocked');
+    }
+
+    // Disable all links and buttons
+    document.querySelectorAll('a, button').forEach(el => {
+        el.style.pointerEvents = 'none';
+        el.style.opacity = '0.5';
+    });
+}
+
+// Function to unlock page content
+function unlockPageContent() {
+    // Remove overlay
+    const overlay = document.querySelector('.verification-overlay');
+    if (overlay) {
+        overlay.classList.add('hidden');
+        setTimeout(() => overlay.remove(), 300);
+    }
+
+    // Unblock main content
+    const container = document.querySelector('.container');
+    if (container) {
+        container.classList.remove('blocked');
+        container.style.filter = 'none';
+        container.style.opacity = '1';
+    }
+
+    // Enable all links and buttons
+    document.querySelectorAll('a, button').forEach(el => {
+        el.style.pointerEvents = 'auto';
+        el.style.opacity = '1';
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Block all interactive elements until verification is complete (except on Live.html)
     if (!isLivePage) {
@@ -293,49 +338,4 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
-
-// Function to block page content
-function blockPageContent() {
-    // Add overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'verification-overlay';
-    overlay.innerHTML = '<p style="color: #fff; text-align: center; font-size: 1.2em;">Please complete the verification to continue</p>';
-    document.body.appendChild(overlay);
-
-    // Block main content
-    const container = document.querySelector('.container');
-    if (container) {
-        container.classList.add('blocked');
-    }
-
-    // Disable all links and buttons
-    document.querySelectorAll('a, button').forEach(el => {
-        el.style.pointerEvents = 'none';
-        el.style.opacity = '0.5';
-    });
-}
-
-// Function to unlock page content
-function unlockPageContent() {
-    // Remove overlay
-    const overlay = document.querySelector('.verification-overlay');
-    if (overlay) {
-        overlay.classList.add('hidden');
-        setTimeout(() => overlay.remove(), 300);
-    }
-
-    // Unblock main content
-    const container = document.querySelector('.container');
-    if (container) {
-        container.classList.remove('blocked');
-        container.style.filter = 'none';
-        container.style.opacity = '1';
-    }
-
-    // Enable all links and buttons
-    document.querySelectorAll('a, button').forEach(el => {
-        el.style.pointerEvents = 'auto';
-        el.style.opacity = '1';
-    });
-}
 
