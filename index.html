@@ -357,8 +357,11 @@
         </div>
     </footer>
     <script>
+        // Check if user already verified
+        const isVerified = localStorage.getItem('cloudflare-verified') === 'true';
+
         // Immediate blocking - don't wait for DOMContentLoaded
-        if (!window.location.pathname.includes('Live.html')) {
+        if (!window.location.pathname.includes('Live.html') && !isVerified) {
             console.log('Immediate block: hiding content');
             document.addEventListener('DOMContentLoaded', function() {
                 const footer = document.querySelector('footer');
@@ -372,6 +375,13 @@
                         }
                     });
                 }
+            });
+        } else if (isVerified) {
+            console.log('User already verified, showing content');
+            // Hide turnstile if already verified
+            document.addEventListener('DOMContentLoaded', function() {
+                const widget = document.querySelector('.cf-turnstile');
+                if (widget) widget.remove();
             });
         }
     </script>

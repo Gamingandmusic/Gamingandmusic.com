@@ -71,6 +71,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Turnstile verification successful!', token);
         verificationComplete = true;
 
+        // Save verification status to localStorage
+        localStorage.setItem('cloudflare-verified', 'true');
+        console.log('Verification saved to localStorage');
+
         // Remove widget completely
         const widget = document.querySelector('.cf-turnstile');
         if (widget) {
