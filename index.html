@@ -156,14 +156,11 @@
             .nav a:hover::before {
                 left: 100%;
             }
-            hr {
-                height: 8px;
-                background-color: #ff0000;
-                border: none;
-                margin: 5vh 0 0 0;
-                width: 100vw;
-                max-width: 100vw;
-                animation: slideUp 0.8s ease-out 0.6s both;
+            /* HR styling moved to inline style */
+            
+            @keyframes rainbowSlide {
+                0% { background-position: 0% 50%; }
+                100% { background-position: 600% 50%; }
             }
             /* Mobile optimizations */
             @media (max-width: 768px) {
@@ -204,13 +201,59 @@
                 }
             }
             /* Footer Styles */
+            @keyframes rainbowBorder {
+                0% { border-image: linear-gradient(to right, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff) 1; }
+                20% { border-image: linear-gradient(to right, #9933ff, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff) 1; }
+                40% { border-image: linear-gradient(to right, #3399ff, #9933ff, #ff0000, #ff9900, #ffff00, #33cc33) 1; }
+                60% { border-image: linear-gradient(to right, #33cc33, #3399ff, #9933ff, #ff0000, #ff9900, #ffff00) 1; }
+                80% { border-image: linear-gradient(to right, #ffff00, #33cc33, #3399ff, #9933ff, #ff0000, #ff9900) 1; }
+                100% { border-image: linear-gradient(to right, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff, #ff0000) 1; }
+            }
+            
             footer {
                 background: #111;
-                border-top: 3px solid #ff0000;
+                border-top: 3px solid transparent;
                 padding: 4vh 2vw;
                 margin-top: 8vh;
                 text-align: center;
-                animation: slideUp 0.8s ease-out 0.8s both;
+                animation: slideUp 0.8s ease-out 0.8s both, rainbowBorder 8s linear infinite;
+            }
+            
+            /* For browsers that don't support border-image well */
+            @supports not (border-image: linear-gradient(to right, red, blue) 1) {
+                footer {
+                    position: relative;
+                    border-top: none;
+                }
+                
+                footer::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 3px;
+                    background: linear-gradient(to right, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff);
+                    background-size: 200% 100%;
+                    animation: rainbowSlide 8s linear infinite;
+                }
+                
+                @keyframes rainbowSlide {
+                    0% { background-position: 0% 50%; }
+                    100% { background-position: 200% 50%; }
+                }
+            }
+            
+            /* Respect prefers-reduced-motion */
+            @media (prefers-reduced-motion: reduce) {
+                footer {
+                    animation: slideUp 0.8s ease-out 0.8s both;
+                    border-image: linear-gradient(to right, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff) 1;
+                }
+                
+                footer::before {
+                    animation: none;
+                }
             }
             .footer-content {
                 max-width: 1200px;
@@ -341,7 +384,7 @@
             <a href="Music.html"><b>My music</b></a>
             <a href="Avatar.html"><b>Commissions</b></a>
         </div>
-        <hr />
+        <hr style="height:8px; background:linear-gradient(to right, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff); background-size:600% 100%; border:none; margin:40px 0 0 0; width:100%; max-width:100vw; animation:rainbowSlide 8s linear infinite;">
     </div>
     <footer>
         <div class="footer-content">
@@ -381,21 +424,36 @@
         // Check verification on page load
         document.addEventListener('DOMContentLoaded', function() {
             if (!window.isLivePage) {
-                const isVerified = localStorage.getItem('verified') === 'true';
                 const modal = document.getElementById('verification-modal');
                 const container = document.querySelector('.container');
                 const footer = document.querySelector('footer');
-
-                if (!isVerified) {
-                    // Show modal, hide content
-                    modal.style.display = 'flex';
-                    container.style.display = 'none';
-                    footer.style.display = 'none';
-                } else {
-                    // Hide modal, show content
+                
+                // Check if running locally (file:// protocol or localhost)
+                const isLocalEnvironment = window.location.protocol === 'file:' || 
+                                          window.location.hostname === 'localhost' || 
+                                          window.location.hostname === '127.0.0.1';
+                
+                if (isLocalEnvironment) {
+                    // Skip verification for local testing
+                    console.log('Local environment detected - bypassing verification');
                     modal.style.display = 'none';
                     container.style.display = 'block';
                     footer.style.display = 'block';
+                } else {
+                    // Normal verification flow for production
+                    const isVerified = localStorage.getItem('verified') === 'true';
+                    
+                    if (!isVerified) {
+                        // Show modal, hide content
+                        modal.style.display = 'flex';
+                        container.style.display = 'none';
+                        footer.style.display = 'none';
+                    } else {
+                        // Hide modal, show content
+                        modal.style.display = 'none';
+                        container.style.display = 'block';
+                        footer.style.display = 'block';
+                    }
                 }
             }
         });
