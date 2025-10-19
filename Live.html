@@ -3,8 +3,31 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Watch live streams from Gamingandmusic. Join for gaming and music performances.">
+    <meta name="keywords" content="live stream, gaming, music performance, live music, streaming">
+    <meta name="author" content="Gamingandmusic">
+    <!-- Open Graph Tags for Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gamingandmusic.github.io/Live.html">
+    <meta property="og:title" content="Live Stream - Gamingandmusic">
+    <meta property="og:description" content="Watch live streams from Gamingandmusic. Join for gaming and music performances.">
+    <meta property="og:image" content="https://gamingandmusic.github.io/images/Gaming-image.png">
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Live Stream - Gamingandmusic">
+    <meta name="twitter:description" content="Watch live streams from Gamingandmusic.">
+    <meta name="twitter:image" content="https://gamingandmusic.github.io/images/Gaming-image.png">
     <title>Live Stream | Gamingandmusic</title>
     <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="canonical" href="https://gamingandmusic.github.io/Live.html">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8TX5ZTQFQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L8TX5ZTQFQ');
+    </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
         * {
@@ -88,6 +111,89 @@
             body {
                 align-items: flex-start;
                 padding-top: 10px;
+            }
+        }
+        /* Footer Styles */
+        footer {
+            background: #111;
+            border-top: 3px solid #ff0000;
+            padding: 4vh 2vw;
+            margin-top: 8vh;
+            text-align: center;
+            animation: slideUp 0.8s ease-out 0.8s both;
+            width: 100%;
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2vw;
+            flex-wrap: wrap;
+            margin-bottom: 2vh;
+        }
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2vw;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #ff0000;
+        }
+        .footer-divider {
+            width: 80%;
+            height: 1px;
+            background: #333;
+            margin: 2vh auto;
+        }
+        .footer-bottom {
+            font-size: 0.9vw;
+            color: #999;
+        }
+        .footer-bottom p {
+            margin: 0.5vh 0;
+        }
+        @media (max-width: 768px) {
+            footer {
+                padding: 3vh 2vw;
+                margin-top: 5vh;
+            }
+            .footer-links {
+                gap: 1.5vw;
+            }
+            .footer-links a {
+                font-size: 1.5vw;
+            }
+            .footer-bottom {
+                font-size: 1.2vw;
+            }
+        }
+        @media (max-width: 480px) {
+            footer {
+                padding: 2vh 1vw;
+            }
+            .footer-links {
+                gap: 1vw;
+                flex-direction: column;
+            }
+            .footer-links a {
+                font-size: 2vw;
+            }
+            .footer-bottom {
+                font-size: 1.5vw;
             }
         }
     </style>

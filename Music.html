@@ -3,8 +3,31 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Music | Gamingandmusic</title>
+    <meta name="description" content="Listen to Gamingandmusic on Spotify, YouTube, Apple Music, Tidal, Amazon Music, and SoundCloud. Discover gaming and electronic music.">
+    <meta name="keywords" content="music streaming, Spotify, YouTube Music, Apple Music, Tidal, Amazon Music, SoundCloud, gaming music">
+    <meta name="author" content="Gamingandmusic">
+    <!-- Open Graph Tags for Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gamingandmusic.github.io/Music.html">
+    <meta property="og:title" content="Music - Gamingandmusic">
+    <meta property="og:description" content="Listen to Gamingandmusic on all major music streaming platforms.">
+    <meta property="og:image" content="https://gamingandmusic.github.io/images/Gaming-image.png">
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Music - Gamingandmusic">
+    <meta name="twitter:description" content="Listen to Gamingandmusic on all major music streaming platforms.">
+    <meta name="twitter:image" content="https://gamingandmusic.github.io/images/Gaming-image.png">
+    <title>Music | Gamingandmusic - Listen on All Platforms</title>
     <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="canonical" href="https://gamingandmusic.github.io/Music.html">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8TX5ZTQFQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L8TX5ZTQFQ');
+    </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
             * {
@@ -222,6 +245,125 @@
                     font-size: 1.5vw;
                 }
             }
+            /* Footer Styles */
+            footer {
+                background: #111;
+                border-top: 3px solid #ff0000;
+                padding: 4vh 2vw;
+                margin-top: 8vh;
+                text-align: center;
+                animation: slideUp 0.8s ease-out 0.8s both;
+            }
+            .footer-content {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            .footer-links {
+                display: flex;
+                justify-content: center;
+                gap: 2vw;
+                flex-wrap: wrap;
+                margin-bottom: 2vh;
+            }
+            .footer-links a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 1.2vw;
+                transition: color 0.3s ease;
+            }
+            .footer-links a:hover {
+                color: #ff0000;
+            }
+            .footer-divider {
+                width: 80%;
+                height: 1px;
+                background: #333;
+                margin: 2vh auto;
+            }
+            .footer-bottom {
+                font-size: 0.9vw;
+                color: #999;
+            }
+            .footer-bottom p {
+                margin: 0.5vh 0;
+            }
+            .social-links {
+                display: flex;
+                justify-content: center;
+                gap: 2vw;
+                margin: 2vh 0;
+                flex-wrap: wrap;
+            }
+            .social-links a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 3vw;
+                height: 3vw;
+                min-width: 40px;
+                min-height: 40px;
+                background: #ff0000;
+                color: #fff;
+                border-radius: 50%;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                font-size: 1.5vw;
+            }
+            .social-links a:hover {
+                background: #c20000;
+                transform: scale(1.15) translateY(-3px);
+                box-shadow: 0 6px 16px rgba(255, 0, 0, 0.4);
+            }
+            @media (max-width: 768px) {
+                .social-links {
+                    gap: 1.5vw;
+                }
+                .social-links a {
+                    width: 4vw;
+                    height: 4vw;
+                    font-size: 2vw;
+                }
+            }
+            @media (max-width: 480px) {
+                .social-links {
+                    gap: 1vw;
+                }
+                .social-links a {
+                    width: 5vw;
+                    height: 5vw;
+                    font-size: 2.5vw;
+                }
+            }
+            @media (max-width: 768px) {
+                footer {
+                    padding: 3vh 2vw;
+                    margin-top: 5vh;
+                }
+                .footer-links {
+                    gap: 1.5vw;
+                }
+                .footer-links a {
+                    font-size: 1.5vw;
+                }
+                .footer-bottom {
+                    font-size: 1.2vw;
+                }
+            }
+            @media (max-width: 480px) {
+                footer {
+                    padding: 2vh 1vw;
+                }
+                .footer-links {
+                    gap: 1vw;
+                    flex-direction: column;
+                }
+                .footer-links a {
+                    font-size: 2vw;
+                }
+                .footer-bottom {
+                    font-size: 1.5vw;
+                }
+            }
     </style>
 </head>
 <body>
@@ -245,8 +387,29 @@
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/y4iHxbuYBAg?si=uC_1b6KKCZLJhbLj" title="YouTube video player" frameborder="0" 
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/6FcSk3WwFmeXm4ZLoxJr1K?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" 
+    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/6FcSk3WwFmeXm4ZLoxJr1K?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen=""
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="Music.html">Music</a>
+                <a href="Avatar.html">Commissions</a>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="social-links">
+                <a href="https://twitter.com/gamingandmusic" target="_blank" rel="noopener noreferrer" title="Twitter" aria-label="Follow on Twitter">𝕏</a>
+                <a href="https://instagram.com/gamingandmusic" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Follow on Instagram">📷</a>
+                <a href="https://tiktok.com/@gamingandmusic" target="_blank" rel="noopener noreferrer" title="TikTok" aria-label="Follow on TikTok">🎵</a>
+                <a href="https://youtube.com/@gamingandmusic" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="Subscribe on YouTube">▶️</a>
+                <a href="mailto:gamingandmusiccontact@gmail.com" title="Email" aria-label="Send Email">✉️</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Gamingandmusic. All rights reserved.</p>
+                <p>Follow me on social media for updates and new releases!</p>
+            </div>
+        </div>
+    </footer>
     <script src="smooth-transitions.js"></script>
 </body>
 </html>
