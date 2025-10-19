@@ -1,4 +1,9 @@
 // Smooth page transitions and interactive effects
+// Detect mobile and browser capabilities
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isTouch = () => window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 document.addEventListener('DOMContentLoaded', function() {
     // Very rare chance to play flashbang sound on startup (1 in 20)
     if (Math.random() < 0.05) {
@@ -79,25 +84,39 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
     
-    // Add ripple effect on click for buttons
-    document.querySelectorAll('.nav a, .music-btn, .home-link').forEach(button => {
-        button.addEventListener('click', function(e) {
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.classList.add('ripple');
-            
-            this.appendChild(ripple);
-            
-            setTimeout(() => ripple.remove(), 600);
+    // Add ripple effect on click for buttons (skip on mobile for performance)
+    if (!isMobile) {
+        document.querySelectorAll('.nav a, .music-btn, .home-link').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = (e.clientX || e.touches?.[0]?.clientX || 0) - rect.left - size / 2;
+                const y = (e.clientY || e.touches?.[0]?.clientY || 0) - rect.top - size / 2;
+
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+
+                this.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 600);
+            });
         });
-    });
+    }
+
+    // Add touch feedback for mobile
+    if (isMobile || isTouch()) {
+        document.querySelectorAll('.nav a, .music-btn, .home-link').forEach(button => {
+            button.addEventListener('touchstart', function() {
+                this.style.opacity = '0.8';
+            });
+            button.addEventListener('touchend', function() {
+                this.style.opacity = '1';
+            });
+        });
+    }
     
     // Smooth page transition on link click (for internal navigation)
     document.querySelectorAll('a[href$=".html"]').forEach(link => {
@@ -106,14 +125,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.target === '_blank' || this.href.includes('http')) {
                 return;
             }
-            
+
             e.preventDefault();
             const href = this.href;
-            
+
+            // Respect prefers-reduced-motion
+            if (prefersReducedMotion) {
+                window.location.href = href;
+                return;
+            }
+
             // Fade out current page
             document.body.style.opacity = '0';
             document.body.style.transition = 'opacity 0.4s ease-out';
-            
+
             // Navigate after fade out
             setTimeout(() => {
                 window.location.href = href;
@@ -122,14 +147,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Add ripple effect styles dynamically
+// Add ripple effect styles dynamically with mobile optimizations
 const style = document.createElement('style');
 style.textContent = `
     .nav a, .music-btn, .home-link {
         position: relative;
         overflow: hidden;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
     }
-    
+
     .ripple {
         position: absolute;
         border-radius: 50%;
@@ -138,11 +167,44 @@ style.textContent = `
         animation: ripple-animation 0.6s ease-out;
         pointer-events: none;
     }
-    
+
     @keyframes ripple-animation {
         to {
             transform: scale(4);
             opacity: 0;
+        }
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .cf-turnstile {
+            transform: scale(0.9);
+            transform-origin: center;
+        }
+    }
+
+    /* Respect prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    /* High DPI screens */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .nav a, .music-btn, .home-link {
+            border-width: 1px;
         }
     }
 `;
