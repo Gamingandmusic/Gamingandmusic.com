@@ -12,46 +12,64 @@ let verificationComplete = false;
 
 // Function to block page content
 function blockPageContent() {
-    // Add overlay
+    // Create and add overlay
     const overlay = document.createElement('div');
-    overlay.className = 'verification-overlay';
+    overlay.id = 'verification-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        pointer-events: auto;
+    `;
     overlay.innerHTML = '<p style="color: #fff; text-align: center; font-size: 1.2em;">Please complete the verification to continue</p>';
     document.body.appendChild(overlay);
 
     // Block main content
     const container = document.querySelector('.container');
     if (container) {
-        container.classList.add('blocked');
+        container.style.pointerEvents = 'none';
+        container.style.opacity = '0.5';
+        container.style.filter = 'blur(2px)';
     }
 
     // Disable all links and buttons
     document.querySelectorAll('a, button').forEach(el => {
         el.style.pointerEvents = 'none';
         el.style.opacity = '0.5';
+        el.style.cursor = 'not-allowed';
     });
 }
 
 // Function to unlock page content
 function unlockPageContent() {
     // Remove overlay
-    const overlay = document.querySelector('.verification-overlay');
+    const overlay = document.getElementById('verification-overlay');
     if (overlay) {
-        overlay.classList.add('hidden');
+        overlay.style.opacity = '0';
+        overlay.style.transition = 'opacity 0.3s ease-out';
         setTimeout(() => overlay.remove(), 300);
     }
 
     // Unblock main content
     const container = document.querySelector('.container');
     if (container) {
-        container.classList.remove('blocked');
-        container.style.filter = 'none';
+        container.style.pointerEvents = 'auto';
         container.style.opacity = '1';
+        container.style.filter = 'none';
     }
 
     // Enable all links and buttons
     document.querySelectorAll('a, button').forEach(el => {
         el.style.pointerEvents = 'auto';
         el.style.opacity = '1';
+        el.style.cursor = 'pointer';
     });
 }
 
