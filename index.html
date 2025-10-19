@@ -361,34 +361,36 @@
         window.isLivePage = window.location.pathname.includes('Live.html');
 
         if (!window.isLivePage && !window.isVerified) {
+            // Hide everything except turnstile on first load
             document.addEventListener('DOMContentLoaded', function() {
-                const footer = document.querySelector('footer');
-                if (footer) footer.style.display = 'none';
                 const container = document.querySelector('.container');
                 if (container) {
-                    Array.from(container.children).forEach(child => {
-                        if (!child.classList.contains('cf-turnstile')) {
-                            child.style.display = 'none';
-                        }
-                    });
+                    container.style.display = 'none';
+                }
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.display = 'none';
                 }
             });
         } else if (window.isVerified) {
+            // Show everything and remove turnstile for returning users
             document.addEventListener('DOMContentLoaded', function() {
-                const footer = document.querySelector('footer');
-                if (footer) footer.style.display = 'block';
                 const container = document.querySelector('.container');
                 if (container) {
-                    Array.from(container.children).forEach(child => {
-                        child.style.display = 'block';
-                    });
+                    container.style.display = 'block';
+                }
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.display = 'block';
                 }
                 const widget = document.querySelector('.cf-turnstile');
-                if (widget) widget.remove();
+                if (widget) {
+                    widget.remove();
+                }
             });
         }
     </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <script src="smooth-transitions.js?v=4"></script>
+    <script src="smooth-transitions.js?v=5"></script>
 </body>
 </html>

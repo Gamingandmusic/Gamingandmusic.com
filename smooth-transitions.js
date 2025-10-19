@@ -10,44 +10,20 @@ const isLivePage = window.location.pathname.includes('Live.html');
 // Block content until Cloudflare verification
 let verificationComplete = false;
 
-// Function to block page content
-function blockPageContent() {
-    console.log('blockPageContent called');
-
-    // Hide footer
-    const footer = document.querySelector('footer');
-    if (footer) {
-        footer.style.display = 'none';
-    }
-
-    // Hide container content but keep turnstile visible
-    const container = document.querySelector('.container');
-    if (container) {
-        // Hide all children except turnstile
-        Array.from(container.children).forEach(child => {
-            if (!child.classList.contains('cf-turnstile')) {
-                child.style.display = 'none';
-            }
-        });
-    }
-}
-
 // Function to unlock page content
 function unlockPageContent() {
     console.log('unlockPageContent called');
+
+    // Show container
+    const container = document.querySelector('.container');
+    if (container) {
+        container.style.display = 'block';
+    }
 
     // Show footer
     const footer = document.querySelector('footer');
     if (footer) {
         footer.style.display = 'block';
-    }
-
-    // Show container content
-    const container = document.querySelector('.container');
-    if (container) {
-        Array.from(container.children).forEach(child => {
-            child.style.display = 'block';
-        });
     }
 }
 
