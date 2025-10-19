@@ -12,70 +12,50 @@ let verificationComplete = false;
 
 // Function to block page content
 function blockPageContent() {
-    // Create and add overlay
-    const overlay = document.createElement('div');
-    overlay.id = 'verification-overlay';
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        pointer-events: auto;
-    `;
-    overlay.innerHTML = '<p style="color: #fff; text-align: center; font-size: 1.2em;">Please complete the verification to continue</p>';
-    document.body.appendChild(overlay);
+    console.log('blockPageContent called');
 
-    // Block main content
-    const container = document.querySelector('.container');
-    if (container) {
-        container.style.pointerEvents = 'none';
-        container.style.opacity = '0.5';
-        container.style.filter = 'blur(2px)';
+    // Hide footer
+    const footer = document.querySelector('footer');
+    if (footer) {
+        footer.style.display = 'none';
     }
 
-    // Disable all links and buttons
-    document.querySelectorAll('a, button').forEach(el => {
-        el.style.pointerEvents = 'none';
-        el.style.opacity = '0.5';
-        el.style.cursor = 'not-allowed';
-    });
+    // Hide container content but keep turnstile visible
+    const container = document.querySelector('.container');
+    if (container) {
+        // Hide all children except turnstile
+        Array.from(container.children).forEach(child => {
+            if (!child.classList.contains('cf-turnstile')) {
+                child.style.display = 'none';
+            }
+        });
+    }
 }
 
 // Function to unlock page content
 function unlockPageContent() {
-    // Remove overlay
-    const overlay = document.getElementById('verification-overlay');
-    if (overlay) {
-        overlay.style.opacity = '0';
-        overlay.style.transition = 'opacity 0.3s ease-out';
-        setTimeout(() => overlay.remove(), 300);
+    console.log('unlockPageContent called');
+
+    // Show footer
+    const footer = document.querySelector('footer');
+    if (footer) {
+        footer.style.display = '';
     }
 
-    // Unblock main content
+    // Show container content
     const container = document.querySelector('.container');
     if (container) {
-        container.style.pointerEvents = 'auto';
-        container.style.opacity = '1';
-        container.style.filter = 'none';
+        Array.from(container.children).forEach(child => {
+            child.style.display = '';
+        });
     }
-
-    // Enable all links and buttons
-    document.querySelectorAll('a, button').forEach(el => {
-        el.style.pointerEvents = 'auto';
-        el.style.opacity = '1';
-        el.style.cursor = 'pointer';
-    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded - isLivePage:', isLivePage);
     // Block all interactive elements until verification is complete (except on Live.html)
     if (!isLivePage) {
+        console.log('Blocking page content...');
         blockPageContent();
     }
 
@@ -88,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Hide Cloudflare Turnstile widget after completion and unlock content
     window.onTurnstileSuccess = function(token) {
+        console.log('Turnstile verification successful!', token);
         verificationComplete = true;
         const widget = document.querySelector('.cf-turnstile');
         if (widget) {
@@ -98,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }
         // Unlock page content
+        console.log('Unlocking page content...');
         unlockPageContent();
     };
 
