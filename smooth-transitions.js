@@ -71,10 +71,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Turnstile verification successful!', token);
         verificationComplete = true;
 
-        // Hide widget
+        // Remove widget completely
         const widget = document.querySelector('.cf-turnstile');
         if (widget) {
-            widget.style.display = 'none';
+            widget.remove();
         }
 
         // Unlock page content
