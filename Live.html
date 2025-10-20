@@ -28,7 +28,7 @@
         gtag('js', new Date());
         gtag('config', 'G-L8TX5ZTQFQ');
     </script>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" onload="initTurnstile()" onerror="console.error('Failed to load Turnstile')" defer></script>
     <style>
         * {
             scroll-behavior: smooth;
@@ -212,9 +212,60 @@
                 allowfullscreen>
             </iframe>
         </div>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAAB7gLuZQcG3FQ9fR" data-callback="onTurnstileSuccess"></div>
+        <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAAB7gLuZQcG3FQ9fR" data-callback="onTurnstileSuccess" data-theme="dark" data-language="auto"></div>
         <hr style="height:6px; background:linear-gradient(to right, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff); background-size:600% 100%; border:none; margin:40px 0 0 0; width:100%; max-width:100vw; animation:rainbowSlide 8s linear infinite;">
     </div>
+    <script>
+        // Turnstile initialization for mobile Safari compatibility
+        window.turnstileRetries = 0;
+        const MAX_TURNSTILE_RETRIES = 3;
+
+        window.onTurnstileError = function(errorData) {
+            console.error('Turnstile error:', errorData);
+            // Retry loading Turnstile for mobile Safari compatibility
+            if (window.turnstileRetries < MAX_TURNSTILE_RETRIES && window.turnstile) {
+                window.turnstileRetries++;
+                console.log('Retrying Turnstile render (attempt ' + window.turnstileRetries + ')');
+                setTimeout(() => {
+                    const widget = document.getElementById('turnstile-widget');
+                    if (widget) {
+                        window.turnstile.render('#turnstile-widget', {
+                            sitekey: '0x4AAAAAAB7gLuZQcG3FQ9fR',
+                            callback: 'onTurnstileSuccess',
+                            'error-callback': 'onTurnstileError',
+                            theme: 'dark',
+                            language: 'auto'
+                        });
+                    }
+                }, 1000);
+            }
+        };
+
+        function initTurnstile() {
+            if (window.turnstile) {
+                const widget = document.getElementById('turnstile-widget');
+                if (widget && !widget.hasAttribute('data-rendered')) {
+                    try {
+                        window.turnstile.render('#turnstile-widget', {
+                            sitekey: '0x4AAAAAAB7gLuZQcG3FQ9fR',
+                            callback: 'onTurnstileSuccess',
+                            'error-callback': 'onTurnstileError',
+                            theme: 'dark',
+                            language: 'auto'
+                        });
+                    } catch (e) {
+                        console.error('Error rendering Turnstile:', e);
+                    }
+                }
+            } else {
+                // Retry if turnstile isn't loaded yet
+                setTimeout(initTurnstile, 500);
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initTurnstile);
+    </script>
     <script src="smooth-transitions.js"></script>
 </body>
 </html>

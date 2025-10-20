@@ -204,45 +204,130 @@
             .home-link:hover::before {
                 left: 100%;
             }
+            /* Responsive iframes container */
+            .iframe-container {
+                position: relative;
+                width: 90%;
+                max-width: 560px;
+                margin: 20px auto;
+                overflow: hidden;
+                border-radius: 12px;
+            }
+            .iframe-container.youtube {
+                padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            }
+            .iframe-container.spotify {
+                padding-bottom: 62.86%; /* Spotify embed ratio */
+            }
+            .iframe-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 12px;
+            }
             /* Mobile optimizations */
             @media (max-width: 768px) {
                 h1 {
                     font-size: 6vw;
+                    margin-top: 3vh;
+                    margin-bottom: 2vh;
                 }
                 .music-links {
-                    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                    gap: 0.8vw;
+                    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                    gap: 1rem;
+                    padding: 0 1rem;
                 }
                 .music-btn {
-                    padding: 1vw 1.5vw;
-                    font-size: 1.2vw;
-                    gap: 0.3vw;
+                    padding: 0.75rem 1rem;
+                    font-size: 0.95rem;
+                    gap: 0.5rem;
+                    min-height: 44px;
+                    border-radius: 10px;
+                    border-width: 2px;
                 }
                 .music-btn img {
-                    width: 1vw;
-                    height: 1vw;
+                    width: 20px;
+                    height: 20px;
+                }
+                .home-link {
+                    min-height: 44px;
+                    padding: 0.75rem 1.5rem;
+                    font-size: 1rem;
+                    margin-top: 1rem;
+                    display: inline-flex;
+                    align-items: center;
+                }
+                .container {
+                    padding: 0 1rem;
+                }
+                .iframe-container {
+                    width: 100%;
+                    max-width: 100%;
+                    margin: 15px 0;
                 }
             }
             @media (max-width: 480px) {
                 h1 {
-                    font-size: 8vw;
+                    font-size: 7vw;
+                    margin-top: 2vh;
+                    margin-bottom: 1.5vh;
                 }
                 .music-links {
                     grid-template-columns: 1fr;
-                    gap: 0.5vw;
+                    gap: 0.75rem;
+                    padding: 0 0.5rem;
                 }
                 .music-btn {
-                    padding: 1.5vw 2vw;
-                    font-size: 1.5vw;
-                    gap: 0.5vw;
+                    padding: 0.85rem 1rem;
+                    font-size: 0.9rem;
+                    gap: 0.5rem;
+                    min-height: 48px;
+                    border-radius: 8px;
+                    border-width: 2px;
+                    display: flex;
+                    align-items: center;
                 }
                 .music-btn img {
-                    width: 1.5vw;
-                    height: 1.5vw;
+                    width: 18px;
+                    height: 18px;
+                    min-width: 18px;
+                    min-height: 18px;
                 }
                 .home-link {
-                    padding: 1vw 2vw;
-                    font-size: 1.5vw;
+                    min-height: 48px;
+                    padding: 0.85rem 1.5rem;
+                    font-size: 0.95rem;
+                    margin-top: 1.5rem;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .container {
+                    padding: 0 0.75rem;
+                }
+                .iframe-container {
+                    width: 100%;
+                    max-width: 100%;
+                    margin: 12px 0;
+                }
+            }
+            @media (max-width: 360px) {
+                h1 {
+                    font-size: 6.5vw;
+                    letter-spacing: 1px;
+                }
+                .music-btn {
+                    padding: 0.75rem 0.75rem;
+                    font-size: 0.8rem;
+                    gap: 0.4rem;
+                }
+                .music-btn img {
+                    width: 16px;
+                    height: 16px;
+                    min-width: 16px;
+                    min-height: 16px;
                 }
             }
             /* Footer Styles */
@@ -402,31 +487,31 @@
             }
             @media (max-width: 480px) {
                 footer {
-                    padding: 2vh 1vw;
+                    padding: 2rem 1rem;
                 }
                 .footer-links {
-                    gap: 1vw;
+                    gap: 1rem;
                     flex-direction: column;
                 }
                 .footer-links a {
-                    font-size: 2vw;
+                    font-size: 1rem;
+                    padding: 0.5rem;
                 }
                 .footer-bottom {
-                    font-size: 1.5vw;
+                    font-size: 0.9rem;
                 }
             }
     </style>
 </head>
 <body>
     <!-- Cloudflare Turnstile Verification Modal -->
-    <!-- DISABLED: Error 110200 - sitekey not valid for this domain. Re-enable after configuring in Cloudflare dashboard -->
-    <!-- <div id="verification-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; align-items: center; justify-content: center;">
-        <div style="text-align: center; color: white; padding: 40px;">
-            <h2>Verify You're Human</h2>
-            <p>Complete the verification below to continue</p>
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAB7gLuZQcG3FQ9fR" data-callback="onTurnstileSuccess" style="display: flex; justify-content: center; margin: 20px 0;"></div>
+    <div id="verification-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+        <div style="text-align: center; color: white; padding: clamp(1.5rem, 5vw, 40px); width: 100%; max-width: 500px; background: rgba(30,30,30,0.9); border-radius: 12px; border: 2px solid #ff0000;">
+            <h2 style="margin: 0 0 0.5rem 0; font-size: clamp(1.5rem, 6vw, 2rem);">Verify You're Human</h2>
+            <p style="margin: 0 0 1.5rem 0; font-size: clamp(0.95rem, 4vw, 1rem); color: #ccc;">Complete the verification below to continue</p>
+            <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAAB7gLuZQcG3FQ9fR" data-callback="onTurnstileSuccess" data-theme="dark" data-language="auto" style="display: flex; justify-content: center; margin: 1.5rem auto;"></div>
         </div>
-    </div> -->
+    </div>
 
     <div class="container">
         <h1>Find me on:</h1>
@@ -441,14 +526,28 @@
     <a class="home-link" href="index.html">Home</a>
     <hr style="height:6px; background:linear-gradient(to right, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff); background-size:600% 100%; border:none; margin:40px 0 0 0; width:100%; max-width:100vw; animation:rainbowSlide 8s linear infinite;">
     </div>
-    <iframe name="youtube-video-1" width="560" height="315" src="https://www.youtube.com/embed/FUZHxLHLnyw?si=WR1I9po5n_yjnO5z" title="YouTube video player - Gamingandmusic" frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <iframe name="youtube-video-2" width="560" height="315" src="https://www.youtube-nocookie.com/embed/OOBTOPp4Rvg?si=bLn1rPUTf97kVnRH" title="YouTube video player - Gamingandmusic" frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <iframe name="youtube-video-3" width="560" height="315" src="https://www.youtube-nocookie.com/embed/y4iHxbuYBAg?si=uC_1b6KKCZLJhbLj" title="YouTube video player - Gamingandmusic" frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <iframe name="spotify-artist" data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/6FcSk3WwFmeXm4ZLoxJr1K?utm_source=generator" title="Spotify artist profile" width="100%" height="352" frameBorder="0" allowfullscreen=""
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    
+    <!-- Responsive YouTube embeds -->
+    <div class="iframe-container youtube">
+        <iframe name="youtube-video-1" src="https://www.youtube.com/embed/FUZHxLHLnyw?si=WR1I9po5n_yjnO5z" title="YouTube video player - Gamingandmusic" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    
+    <div class="iframe-container youtube">
+        <iframe name="youtube-video-2" src="https://www.youtube-nocookie.com/embed/OOBTOPp4Rvg?si=bLn1rPUTf97kVnRH" title="YouTube video player - Gamingandmusic" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    
+    <div class="iframe-container youtube">
+        <iframe name="youtube-video-3" src="https://www.youtube-nocookie.com/embed/y4iHxbuYBAg?si=uC_1b6KKCZLJhbLj" title="YouTube video player - Gamingandmusic" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    
+    <!-- Responsive Spotify embed -->
+    <div class="iframe-container spotify">
+        <iframe name="spotify-artist" data-testid="embed-iframe" src="https://open.spotify.com/embed/artist/6FcSk3WwFmeXm4ZLoxJr1K?utm_source=generator" title="Spotify artist profile" frameBorder="0" allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
     <footer>
         <div class="footer-content">
             <div class="footer-links">
@@ -471,6 +570,8 @@
     </footer>
     <script>
         window.isLivePage = window.location.pathname.includes('Live.html');
+        window.turnstileRetries = 0;
+        const MAX_TURNSTILE_RETRIES = 3;
 
         // Cloudflare Turnstile callback
         window.onTurnstileSuccess = function(token) {
@@ -483,20 +584,57 @@
             document.querySelector('footer').style.display = 'block';
         };
 
+        // Error handler for Turnstile
+        window.onTurnstileError = function(errorData) {
+            console.error('Turnstile error:', errorData);
+            // Retry loading Turnstile for mobile Safari compatibility
+            if (window.turnstileRetries < MAX_TURNSTILE_RETRIES && window.turnstile) {
+                window.turnstileRetries++;
+                console.log('Retrying Turnstile render (attempt ' + window.turnstileRetries + ')');
+                setTimeout(() => {
+                    const widget = document.getElementById('turnstile-widget');
+                    if (widget) {
+                        window.turnstile.render('#turnstile-widget', {
+                            sitekey: '0x4AAAAAAB7gLuZQcG3FQ9fR',
+                            callback: 'onTurnstileSuccess',
+                            'error-callback': 'onTurnstileError',
+                            theme: 'dark',
+                            language: 'auto'
+                        });
+                    }
+                }, 1000);
+            }
+        };
+
+        // Ensure Turnstile loads before showing modal
+        function initTurnstile() {
+            if (window.turnstile) {
+                const widget = document.getElementById('turnstile-widget');
+                if (widget && !widget.hasAttribute('data-rendered')) {
+                    try {
+                        window.turnstile.render('#turnstile-widget', {
+                            sitekey: '0x4AAAAAAB7gLuZQcG3FQ9fR',
+                            callback: 'onTurnstileSuccess',
+                            'error-callback': 'onTurnstileError',
+                            theme: 'dark',
+                            language: 'auto'
+                        });
+                    } catch (e) {
+                        console.error('Error rendering Turnstile:', e);
+                    }
+                }
+            } else {
+                // Retry if turnstile isn't loaded yet
+                setTimeout(initTurnstile, 500);
+            }
+        }
+
         // Check verification on page load
         document.addEventListener('DOMContentLoaded', function() {
             if (!window.isLivePage) {
                 const modal = document.getElementById('verification-modal');
                 const container = document.querySelector('.container');
                 const footer = document.querySelector('footer');
-                
-                // Skip if modal is disabled/commented out
-                if (!modal) {
-                    console.log('Turnstile modal disabled - showing content');
-                    if (container) container.style.display = 'block';
-                    if (footer) footer.style.display = 'block';
-                    return;
-                }
                 
                 // Check if running locally (file:// protocol or localhost)
                 const isLocalEnvironment = window.location.protocol === 'file:' || 
@@ -518,6 +656,8 @@
                         modal.style.display = 'flex';
                         container.style.display = 'none';
                         footer.style.display = 'none';
+                        // Initialize Turnstile when modal is shown
+                        initTurnstile();
                     } else {
                         // Hide modal, show content
                         modal.style.display = 'none';
@@ -529,8 +669,8 @@
         });
     </script>
 
-    <!-- Cloudflare Turnstile Script - DISABLED -->
-    <!-- <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> -->
+    <!-- Cloudflare Turnstile Script - Mobile Safari fix -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" onload="initTurnstile()" onerror="console.error('Failed to load Turnstile')" defer></script>
     <script src="smooth-transitions.js?v=9"></script>
 </body>
 </html>

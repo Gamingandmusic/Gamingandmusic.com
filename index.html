@@ -370,10 +370,10 @@
 <body>
     <!-- Cloudflare Turnstile Verification Modal -->
     <div id="verification-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; align-items: center; justify-content: center;">
-        <div style="text-align: center; color: white; padding: 40px;">
+        <div style="text-align: center; color: white; padding: 40px; width: 90%; max-width: 500px;">
             <h2>Verify You're Human</h2>
             <p>Complete the verification below to continue</p>
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAB7gLuZQcG3FQ9fR" data-callback="onTurnstileSuccess" style="display: flex; justify-content: center; margin: 20px 0;"></div>
+            <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAAB7gLuZQcG3FQ9fR" data-callback="onTurnstileSuccess" data-theme="dark" data-language="auto" style="display: flex; justify-content: center; margin: 20px auto;"></div>
         </div>
     </div>
 
@@ -408,6 +408,8 @@
     </footer>
     <script>
         window.isLivePage = window.location.pathname.includes('Live.html');
+        window.turnstileRetries = 0;
+        const MAX_TURNSTILE_RETRIES = 3;
 
         // Cloudflare Turnstile callback
         window.onTurnstileSuccess = function(token) {
@@ -419,6 +421,51 @@
             document.querySelector('.container').style.display = 'block';
             document.querySelector('footer').style.display = 'block';
         };
+
+        // Error handler for Turnstile
+        window.onTurnstileError = function(errorData) {
+            console.error('Turnstile error:', errorData);
+            // Retry loading Turnstile for mobile Safari compatibility
+            if (window.turnstileRetries < MAX_TURNSTILE_RETRIES && window.turnstile) {
+                window.turnstileRetries++;
+                console.log('Retrying Turnstile render (attempt ' + window.turnstileRetries + ')');
+                setTimeout(() => {
+                    const widget = document.getElementById('turnstile-widget');
+                    if (widget) {
+                        window.turnstile.render('#turnstile-widget', {
+                            sitekey: '0x4AAAAAAB7gLuZQcG3FQ9fR',
+                            callback: 'onTurnstileSuccess',
+                            'error-callback': 'onTurnstileError',
+                            theme: 'dark',
+                            language: 'auto'
+                        });
+                    }
+                }, 1000);
+            }
+        };
+
+        // Ensure Turnstile loads before showing modal
+        function initTurnstile() {
+            if (window.turnstile) {
+                const widget = document.getElementById('turnstile-widget');
+                if (widget && !widget.hasAttribute('data-rendered')) {
+                    try {
+                        window.turnstile.render('#turnstile-widget', {
+                            sitekey: '0x4AAAAAAB7gLuZQcG3FQ9fR',
+                            callback: 'onTurnstileSuccess',
+                            'error-callback': 'onTurnstileError',
+                            theme: 'dark',
+                            language: 'auto'
+                        });
+                    } catch (e) {
+                        console.error('Error rendering Turnstile:', e);
+                    }
+                }
+            } else {
+                // Retry if turnstile isn't loaded yet
+                setTimeout(initTurnstile, 500);
+            }
+        }
 
         // Check verification on page load
         document.addEventListener('DOMContentLoaded', function() {
@@ -447,6 +494,8 @@
                         modal.style.display = 'flex';
                         container.style.display = 'none';
                         footer.style.display = 'none';
+                        // Initialize Turnstile when modal is shown
+                        initTurnstile();
                     } else {
                         // Hide modal, show content
                         modal.style.display = 'none';
@@ -458,8 +507,8 @@
         });
     </script>
 
-    <!-- Cloudflare Turnstile Script -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <!-- Cloudflare Turnstile Script - Mobile Safari fix -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" onload="initTurnstile()" onerror="console.error('Failed to load Turnstile')" defer></script>
     <script src="smooth-transitions.js?v=9"></script>
 </body>
 </html>
