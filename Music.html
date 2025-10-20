@@ -419,13 +419,14 @@
 </head>
 <body>
     <!-- Cloudflare Turnstile Verification Modal -->
-    <div id="verification-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+    <!-- DISABLED: Error 110200 - sitekey not valid for this domain. Re-enable after configuring in Cloudflare dashboard -->
+    <!-- <div id="verification-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; align-items: center; justify-content: center;">
         <div style="text-align: center; color: white; padding: 40px;">
             <h2>Verify You're Human</h2>
             <p>Complete the verification below to continue</p>
             <div class="cf-turnstile" data-sitekey="0x4AAAAAAB7gLuZQcG3FQ9fR" data-callback="onTurnstileSuccess" style="display: flex; justify-content: center; margin: 20px 0;"></div>
         </div>
-    </div>
+    </div> -->
 
     <div class="container">
         <h1>Find me on:</h1>
@@ -440,13 +441,13 @@
     <a class="home-link" href="index.html">Home</a>
     <hr style="height:6px; background:linear-gradient(to right, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff); background-size:600% 100%; border:none; margin:40px 0 0 0; width:100%; max-width:100vw; animation:rainbowSlide 8s linear infinite;">
     </div>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/FUZHxLHLnyw?si=WR1I9po5n_yjnO5z" title="YouTube video player" frameborder="0" 
+    <iframe name="youtube-video-1" width="560" height="315" src="https://www.youtube.com/embed/FUZHxLHLnyw?si=WR1I9po5n_yjnO5z" title="YouTube video player - Gamingandmusic" frameborder="0" 
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/OOBTOPp4Rvg?si=bLn1rPUTf97kVnRH" title="YouTube video player" frameborder="0" 
+    <iframe name="youtube-video-2" width="560" height="315" src="https://www.youtube-nocookie.com/embed/OOBTOPp4Rvg?si=bLn1rPUTf97kVnRH" title="YouTube video player - Gamingandmusic" frameborder="0" 
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/y4iHxbuYBAg?si=uC_1b6KKCZLJhbLj" title="YouTube video player" frameborder="0" 
+    <iframe name="youtube-video-3" width="560" height="315" src="https://www.youtube-nocookie.com/embed/y4iHxbuYBAg?si=uC_1b6KKCZLJhbLj" title="YouTube video player - Gamingandmusic" frameborder="0" 
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/6FcSk3WwFmeXm4ZLoxJr1K?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen=""
+    <iframe name="spotify-artist" data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/6FcSk3WwFmeXm4ZLoxJr1K?utm_source=generator" title="Spotify artist profile" width="100%" height="352" frameBorder="0" allowfullscreen=""
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     <footer>
         <div class="footer-content">
@@ -489,6 +490,14 @@
                 const container = document.querySelector('.container');
                 const footer = document.querySelector('footer');
                 
+                // Skip if modal is disabled/commented out
+                if (!modal) {
+                    console.log('Turnstile modal disabled - showing content');
+                    if (container) container.style.display = 'block';
+                    if (footer) footer.style.display = 'block';
+                    return;
+                }
+                
                 // Check if running locally (file:// protocol or localhost)
                 const isLocalEnvironment = window.location.protocol === 'file:' || 
                                           window.location.hostname === 'localhost' || 
@@ -520,8 +529,8 @@
         });
     </script>
 
-    <!-- Cloudflare Turnstile Script -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <!-- Cloudflare Turnstile Script - DISABLED -->
+    <!-- <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> -->
     <script src="smooth-transitions.js?v=9"></script>
 </body>
 </html>
