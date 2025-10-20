@@ -1,81 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Page not found — Gamingandmusic</title>
-    <link rel="icon" href="images/favicon.png" type="image/x-icon">
-    <style>
-        body {
-            background: black;
-            color: #ff0000;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .pyramid {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 700px;
-            padding: 20px;
-            text-align: center;
-        }
-        .pyramid > * {
-            margin-bottom: 18px;
-        }
-        h1 {
-            font-size: 48px;
-            margin: 0;
-        }
-        p {
-            font-size: 18px;
-            color: #fff;
-            margin: 0;
-        }
-        a.button {
-            display: inline-block;
-            padding: 10px 18px;
-            background: #ff0000;
-            color: #000;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 6px;
-        }
-        img.icon {
-            width: 120px;
-            height: auto;
-            border: 6px solid #ff0000;
-        }
-        footer {
-            position: fixed;
-            bottom: 8px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: #777;
-            font-size: 12px;
-        }
-        @keyframes rainbowSlide {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 600% 50%; }
-        }
-    </style>
-    <meta http-equiv="refresh" content="8;url=./index.html">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — Gamingandmusic</title>
+  <link rel="icon" href="images/favicon.png" type="image/x-icon">
+
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    h1 {
+      font-size: 36px;
+      margin: 20px 0 10px;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 0 0 20px;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 10px 18px;
+      background: #ff0000;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    a.button:hover {
+      background: #ff4d4d;
+      color: #fff;
+    }
+
+    img.icon {
+      width: 120px;
+      height: auto;
+      border: 6px solid #ff0000;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    hr {
+      height: 6px;
+      background: linear-gradient(to right, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff);
+      background-size: 600% 100%;
+      border: none;
+      width: 100%;
+      max-width: 500px;
+      animation: rainbowSlide 8s linear infinite;
+      margin-top: 30px;
+    }
+
+    @keyframes rainbowSlide {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 600% 50%; }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="pyramid">
-        <img class="icon" src="images/error-image.png" alt="site icon" onerror="this.style.display='none'">
-        <h1>404 — Page not found</h1>
-        <p>We couldn't find the page you're looking for. It might have been moved or the link may be incorrect.</p>
-        <a class="button" href="./index.html">Return to Home</a>
-        <hr style="height:6px; background:linear-gradient(to right, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff); background-size:600% 100%; border:none; margin:40px 0 0 0; width:100%; max-width:100vw; animation:rainbowSlide 8s linear infinite;">
-    </div>
-    <footer>
-        Gamingandmusic — If you think this is a mistake, go back to the <a href="./index.html">homepage</a>.
-    </footer>
+  <div class="pyramid">
+    <img class="icon" src="images/error-image.png" alt="Site icon" onerror="this.style.display='none'">
+    <h1>404 — Page not found</h1>
+    <p>We couldn't find the page you're looking for. It might have been moved or the link may be incorrect.</p>
+    <a class="button" href="./index.html">Return to Home</a>
+    <hr>
+  </div>
 </body>
 </html>
