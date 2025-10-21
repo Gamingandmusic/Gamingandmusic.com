@@ -491,9 +491,12 @@
                         console.error('Error rendering Turnstile:', e);
                     }
                 }
+            } else if (window.turnstileRetries < 2) {
+                // Only retry twice to prevent soft lock
+                window.turnstileRetries++;
+                setTimeout(initTurnstile, 1000);
             } else {
-                // Retry if turnstile isn't loaded yet
-                setTimeout(initTurnstile, 500);
+                console.error('Turnstile API not available after retries');
             }
         }
 
@@ -526,6 +529,14 @@
                         footer.style.display = 'none';
                         // Initialize Turnstile when modal is shown
                         initTurnstile();
+                        
+                        // Failsafe: If Turnstile doesn't load after 10 seconds, allow bypass
+                        setTimeout(function() {
+                            if (modal.style.display === 'flex' && !document.querySelector('[data-rendered="true"]')) {
+                                console.warn('Turnstile failed to load - allowing bypass');
+                                window.onTurnstileSuccess('bypass-timeout');
+                            }
+                        }, 10000);
                     } else {
                         // Hide modal, show content
                         modal.style.display = 'none';
@@ -537,8 +548,28 @@
         });
     </script>
 
-    <!-- Cloudflare Turnstile Script - Mobile Safari fix -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" onload="initTurnstile()" onerror="console.error('Failed to load Turnstile')" defer></script>
+    <!-- Cloudflare Turnstile Script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async></script>
+    <script>
+        // Wait for Turnstile to load, then initialize
+        window.addEventListener('load', function() {
+            if (window.turnstile) {
+                initTurnstile();
+            } else {
+                // Fallback: retry a few times if not loaded
+                let retryCount = 0;
+                const retryInterval = setInterval(function() {
+                    if (window.turnstile) {
+                        initTurnstile();
+                        clearInterval(retryInterval);
+                    } else if (retryCount++ > 10) {
+                        clearInterval(retryInterval);
+                        console.error('Turnstile failed to load after multiple retries');
+                    }
+                }, 200);
+            }
+        });
+    </script>
     <script src="smooth-transitions.js?v=9"></script>
 </body>
 </html>
