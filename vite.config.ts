@@ -1,4 +1,5 @@
 import { vitePlugin as remix } from "@remix-run/dev";
+import { cloudflarePagesPlatform } from "@remix-run/cloudflare-pages";
 import { defineConfig } from "vite";
 import path from "path";
 
