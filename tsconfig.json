@@ -18,6 +18,6 @@
       "~/*": ["./app/*"]
     }
   },
-  "include": ["app/**/*"],
+  "include": ["app/**/*.js", "app/**/*.jsx"],
   "exclude": ["dist", "build", "node_modules"]
 }
