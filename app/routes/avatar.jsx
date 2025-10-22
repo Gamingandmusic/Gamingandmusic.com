@@ -6,11 +6,11 @@ export const meta = () => [
   { title: 'Avatar Work | Gamingandmusic - Commission Custom Artwork' },
   {
     name: 'description',
-    content: 'Commission custom gaming avatars and artwork from Gamingandmusic. Professional digital art and character design services.',
+    content: 'Commission custom gaming avatars from Gamingandmusic.',
   },
   {
     name: 'keywords',
-    content: 'avatar commission, digital art, character design, gaming art, custom artwork, commission artist',
+    content: 'avatar commission, digital art, character design, gaming art, commission artist',
   },
   { name: 'author', content: 'Gamingandmusic' },
   { property: 'og:type', content: 'website' },
@@ -18,16 +18,16 @@ export const meta = () => [
   { property: 'og:title', content: 'Commission Artwork - Gamingandmusic' },
   {
     property: 'og:description',
-    content: 'Commission custom gaming avatars and artwork from Gamingandmusic. Professional digital art services.',
+    content: 'Commission custom avatars from Gamingandmusic..',
   },
-  { property: 'og:image', content: 'https://gamingandmusic.github.io/images/Gaming%20avi%20examples/fenic.png' },
+  { property: 'og:image', content: 'images/Gaming avi examples/fenic.png' },
   { name: 'twitter:card', content: 'summary_large_image' },
-  { name: 'twitter:title', content: 'Commission Artwork - Gamingandmusic' },
+  { name: 'twitter:title', content: 'Commission Avatar - Gamingandmusic' },
   {
     name: 'twitter:description',
-    content: 'Commission custom gaming avatars and artwork from Gamingandmusic.',
+    content: 'Commission custom avatars from Gamingandmusic.',
   },
-  { name: 'twitter:image', content: 'https://gamingandmusic.github.io/images/Gaming%20avi%20examples/fenic.png' },
+  { name: 'twitter:image', content: 'images/Logos/logo-white.png' },
 ];
 
 export const links = () => [
@@ -62,7 +62,7 @@ export default function Avatar() {
             href="mailto:info@gamingandmusic.com"
             style={{ color: 'inherit', textDecoration: 'underline' }}
           >
-            info@gamingandmusic.com
+            gaming@gamingandmusic.com
           </a>
         </div>
         <Link to="/" className="home-link">
