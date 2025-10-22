@@ -1,8 +1,2 @@
-import { createPagesFunctionHandler } from "@remix-run/cloudflare-pages";
-import * as build from "./dist/index.js";
-
-const handleRequest = createPagesFunctionHandler({ build });
-
-export default {
-  fetch: handleRequest,
-};
+// This file is not used with Cloudflare Pages
+// The functions/[[path]].js handles the request routing

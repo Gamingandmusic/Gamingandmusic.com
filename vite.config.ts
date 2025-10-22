@@ -1,7 +1,10 @@
 import { vitePlugin as remix } from "@remix-run/dev";
-import { cloudflarePagesPlatform } from "@remix-run/cloudflare-pages";
 import { defineConfig } from "vite";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   resolve: {
