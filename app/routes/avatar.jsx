@@ -50,7 +50,7 @@ export default function Avatar() {
           {galleryImages.map((image, index) => (
             <img
               key={index}
-              src={`/images/Gaming avi examples/${image.src}`}
+              src={`/images/Gaming%20avi%20examples/${image.src}`}
               alt={image.alt}
               className="gallery-img"
             />

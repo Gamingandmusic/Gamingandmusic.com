@@ -35,12 +35,12 @@ export const links = () => [
 ];
 
 const musicPlatforms = [
-  { name: 'Spotify', url: 'https://open.spotify.com/artist/...', icon: 'Spotify_Logo.png', className: 'spotify' },
-  { name: 'YouTube', url: 'https://youtube.com/@..', icon: 'YouTube_Logo.png', className: 'youtube' },
-  { name: 'Apple Music', url: 'https://music.apple.com/artist/...', icon: 'Apple_Music_Logo.png', className: 'apple' },
-  { name: 'Tidal', url: 'https://tidal.com/artist/...', icon: 'Tidal_Logo.png', className: 'tidal' },
-  { name: 'Amazon Music', url: 'https://amazon.com/music/...', icon: 'Amazon_Music_Logo.png', className: 'amazon' },
-  { name: 'SoundCloud', url: 'https://soundcloud.com/...', icon: 'SoundCloud_Logo.png', className: 'soundcloud' },
+  { name: 'Spotify', url: 'https://open.spotify.com/artist/6FcSk3WwFmeXm4ZLoxJr1K', icon: 'Spotify_Logo.png', className: 'spotify' },
+  { name: 'YouTube', url: 'https://youtube.com/@YOUR_CHANNEL', icon: 'YouTube_Logo.png', className: 'youtube' },
+  { name: 'Apple Music', url: 'https://music.apple.com/artist/YOUR_ARTIST_ID', icon: 'Apple_Music_Logo.png', className: 'apple' },
+  { name: 'Tidal', url: 'https://tidal.com/artist/YOUR_ARTIST_ID', icon: 'Tidal_Logo.png', className: 'tidal' },
+  { name: 'Amazon Music', url: 'https://amazon.com/music/YOUR_ARTIST_URL', icon: 'Amazon_Music_Logo.png', className: 'amazon' },
+  { name: 'SoundCloud', url: 'https://soundcloud.com/YOUR_USERNAME', icon: 'SoundCloud_Logo.png', className: 'soundcloud' },
 ];
 
 export default function Music() {
@@ -71,14 +71,14 @@ export default function Music() {
         <div className="embeds-grid">
           <div className="iframe-container youtube">
             <iframe
-              src="https://www.youtube.com/embed/..."
+              src="https://www.youtube.com/embed/FUZHxLHLnyw"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
           </div>
           <div className="iframe-container youtube">
             <iframe
-              src="https://www.youtube.com/embed/..."
+              src="https://www.youtube.com/embed/OOBTOPp4Rvg"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
@@ -86,7 +86,7 @@ export default function Music() {
           <div className="spotify-embed-wrapper">
             <div className="iframe-container spotify">
               <iframe
-                src="https://open.spotify.com/embed/track/...?utm_source=generator"
+                src="https://open.spotify.com/embed/artist/6FcSk3WwFmeXm4ZLoxJr1K?utm_source=generator"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               ></iframe>
             </div>
