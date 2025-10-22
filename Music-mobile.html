@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Listen to Gamingandmusic on Spotify, YouTube, Apple Music, Tidal, Amazon Music, and SoundCloud. Discover gaming and electronic music.">
+    <meta name="keywords" content="music streaming, Spotify, YouTube Music, Apple Music, Tidal, Amazon Music, SoundCloud, gaming music">
+    <meta name="author" content="Gamingandmusic">
+    <!-- Open Graph Tags for Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gamingandmusic.github.io/Music-mobile.html">
+    <meta property="og:title" content="Music - Gamingandmusic">
+    <meta property="og:description" content="Listen to Gamingandmusic on all major music streaming platforms.">
+    <meta property="og:image" content="https://gamingandmusic.github.io/images/Gaming-image.png">
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Music - Gamingandmusic">
+    <meta name="twitter:description" content="Listen to Gamingandmusic on all major music streaming platforms.">
+    <meta name="twitter:image" content="https://gamingandmusic.github.io/images/Gaming-image.png">
+    <title>Music | Gamingandmusic - Listen on All Platforms</title>
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="canonical" href="https://gamingandmusic.github.io/Music.html">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8TX5ZTQFQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L8TX5ZTQFQ');
+    </script>
+
+    <style>
+        * {
+            scroll-behavior: smooth;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Arial', sans-serif;
+            min-height: 100vh;
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            animation: fadeIn 0.8s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* View Switcher */
+        .view-switcher {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 8888;
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #ff0000;
+        }
+        .view-switcher button {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #fff;
+            background: #222;
+        }
+        .view-switcher button.active {
+            background: #ff0000;
+            font-weight: bold;
+        }
+        .view-switcher button:hover {
+            background: #ff0000;
+        }
+
+        .container {
+            padding: 1rem;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        h1 {
+            color: #ff0000;
+            font-size: 2rem;
+            margin: 1.5rem 0 1rem 0;
+            letter-spacing: 1px;
+            text-align: center;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .music-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        .music-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: #222;
+            border: 2px solid #444;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            color: #fff;
+            font-size: 1rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            min-height: 52px;
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out backwards;
+        }
+
+        .music-btn:nth-child(1) { animation-delay: 0.3s; }
+        .music-btn:nth-child(2) { animation-delay: 0.35s; }
+        .music-btn:nth-child(3) { animation-delay: 0.4s; }
+        .music-btn:nth-child(4) { animation-delay: 0.45s; }
+        .music-btn:nth-child(5) { animation-delay: 0.5s; }
+        .music-btn:nth-child(6) { animation-delay: 0.55s; }
+
+        .music-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.4s ease;
+            z-index: 0;
+        }
+
+        .music-btn > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .music-btn.spotify { border-color: #1db954; }
+        .music-btn.spotify:active { background: #1db95433; transform: scale(0.98); }
+        .music-btn.spotify:hover { background: #1db95422; }
+
+        .music-btn.youtube { border-color: #ff0000; }
+        .music-btn.youtube:active { background: #ff000033; transform: scale(0.98); }
+        .music-btn.youtube:hover { background: #ff000022; }
+
+        .music-btn.apple { border-color: #fc3c44; }
+        .music-btn.apple:active { background: #fc3c4433; transform: scale(0.98); }
+        .music-btn.apple:hover { background: #fc3c4422; }
+
+        .music-btn.tidal { border-color: #fff; }
+        .music-btn.tidal:active { background: #ffffff22; transform: scale(0.98); }
+        .music-btn.tidal:hover { background: #ffffff11; }
+
+        .music-btn.amazon { border-color: #ff9900; }
+        .music-btn.amazon:active { background: #ff990033; transform: scale(0.98); }
+        .music-btn.amazon:hover { background: #ff990022; }
+
+        .music-btn.soundcloud { border-color: #ff5500; }
+        .music-btn.soundcloud:active { background: #ff550033; transform: scale(0.98); }
+        .music-btn.soundcloud:hover { background: #ff550022; }
+
+        .music-btn img {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .music-btn:active img {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .music-btn:hover img {
+            opacity: 1;
+        }
+
+        .home-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1.5rem;
+            color: #fff;
+            background: #ff0000;
+            padding: 0.9rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 48px;
+            animation: slideUp 0.8s ease-out 0.4s both;
+        }
+
+        .home-link:active {
+            background: #c20000;
+            transform: scale(0.96);
+        }
+
+        .home-link:hover {
+            background: #c20000;
+        }
+
+        .divider {
+            height: 4px;
+            background: linear-gradient(to right, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9933ff);
+            border: none;
+            margin: 2rem 0;
+            border-radius: 2px;
+        }
+
+        /* Content sections */
+        .content-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(30, 30, 30, 0.5);
+            border-radius: 12px;
+            border-left: 3px solid #ff0000;
+        }
+
+        .content-section h3 {
+            font-size: 1.2rem;
+            color: #ff0000;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* Responsive embeds */
+        .embed-container {
+            position: relative;
+            width: 100%;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #111;
+        }
+
+        .embed-container.youtube {
+            padding-bottom: 56.25%;
+        }
+
+        .embed-container.spotify {
+            padding-bottom: 62.86%;
+        }
+
+        .embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            border-top: 3px solid #ff0000;
+            padding: 1.5rem 1rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 100%;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.75rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-links a:active {
+            background: #ff000022;
+            transform: scale(0.98);
+        }
+
+        .footer-links a:hover {
+            background: #ff000011;
+            color: #ff0000;
+        }
+
+        .footer-divider {
+            width: 90%;
+            height: 1px;
+            background: #333;
+            margin: 1.5rem auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: #222;
+            border: 2px solid #444;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 6px;
+        }
+
+        .social-links a img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .social-links a:active {
+            background: #ff0000;
+            border-color: #ff0000;
+            transform: scale(0.92);
+        }
+
+        .social-links a:hover {
+            background: #ff0000;
+            border-color: #ff0000;
+        }
+
+        .footer-bottom {
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 1rem;
+        }
+
+        .footer-bottom p {
+            margin: 0.5rem 0;
+        }
+
+        /* Verification Modal */
+        #verification-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        #verification-modal > div {
+            text-align: center;
+            color: white;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 100%;
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 12px;
+            border: 2px solid #ff0000;
+        }
+
+        #verification-modal h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+        }
+
+        #verification-modal p {
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95rem;
+            color: #ccc;
+        }
+
+        #turnstile-widget {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem auto;
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- View Switcher -->
+    <div class="view-switcher">
+        <button class="active" onclick="switchToMobile()">📱 Mobile</button>
+        <button onclick="switchToDesktop()">🖥️ Desktop</button>
+    </div>
+
+    <!-- Cloudflare Turnstile Verification Modal -->
+    <div id="verification-modal" style="display: none;">
+        <div>
+            <h2>Verify You're Human</h2>
+            <p>Complete the verification below to continue</p>
+            <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAAB7gLuZQcG3FQ9fR" data-callback="onTurnstileSuccess" data-theme="dark" data-language="auto"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Find me on</h1>
+        
+        <div class="music-links">
+            <a class="music-btn spotify" href="https://open.spotify.com/artist/6FcSk3WwFmeXm4ZLoxJr1K?si=K97pvvSMRE6kmmCGReXPUw" target="_blank">
+                <img src="images/Logos/Spotify_Logo.png" alt="Spotify">
+                <span>Spotify</span>
+            </a>
+            <a class="music-btn youtube" href="https://www.youtube.com/@Gamingandmusic." target="_blank">
+                <img src="images/Logos/YouTube_Logo.png" alt="YouTube">
+                <span>YouTube</span>
+            </a>
+            <a class="music-btn apple" href="https://music.apple.com/us/artist/gamingandmusic/1600944407" target="_blank">
+                <img src="images/Logos/Apple_Music_Logo.png" alt="Apple Music">
+                <span>Apple Music</span>
+            </a>
+            <a class="music-btn tidal" href="https://tidal.com/artist/29803360" target="_blank">
+                <img src="images/Logos/Tidal_Logo.png" alt="Tidal">
+                <span>Tidal</span>
+            </a>
+            <a class="music-btn amazon" href="https://www.amazon.com/music/player/artists/B09NRXG7ZP/gamingandmusic" target="_blank">
+                <img src="images/Logos/Amazon_Music_Logo.png" alt="Amazon Music">
+                <span>Amazon Music</span>
+            </a>
+            <a class="music-btn soundcloud" href="https://soundcloud.com/gamingandmuisc?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" target="_blank">
+                <img src="images/Logos/SoundCloud_Logo.png" alt="SoundCloud">
+                <span>SoundCloud</span>
+            </a>
+        </div>
+
+        <div style="text-align: center;">
+            <a class="home-link" href="index.html">← Home</a>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Videos Section -->
+        <div class="content-section">
+            <h3>Videos</h3>
+            
+            <div class="embed-container youtube">
+                <iframe src="https://www.youtube.com/embed/FUZHxLHLnyw?si=WR1I9po5n_yjnO5z" title="YouTube video player - Gamingandmusic" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <div class="embed-container youtube">
+                <iframe src="https://www.youtube-nocookie.com/embed/OOBTOPp4Rvg?si=bLn1rPUTf97kVnRH" title="YouTube video player - Gamingandmusic" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <div class="embed-container youtube">
+                <iframe src="https://www.youtube-nocookie.com/embed/y4iHxbuYBAg?si=uC_1b6KKCZLJhbLj" title="YouTube video player - Gamingandmusic" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <div class="embed-container youtube">
+                <iframe src="https://www.youtube-nocookie.com/embed/YWTLvUBRNRc?si=WPc3RCug_HuWcKjZ" title="YouTube video player - Gamingandmusic" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Spotify Section -->
+        <div class="content-section">
+            <h3>Artist Profile</h3>
+            
+            <div class="embed-container spotify">
+                <iframe src="https://open.spotify.com/embed/artist/6FcSk3WwFmeXm4ZLoxJr1K?utm_source=generator" title="Spotify artist profile" frameBorder="0" allowfullscreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="Music-mobile.html">Music</a>
+                <a href="Avatar.html">Commissions</a>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="social-links">
+                <a href="https://x.com/Gameingandmusic" target="_blank" rel="noopener noreferrer" title="Twitter" aria-label="Follow on Twitter"><img src="images/Logos/logo-white.png" alt="Twitter"></a>
+                <a href="https://www.instagram.com/gamingandymusic" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Follow on Instagram"><img src="images/Logos/Instagram_Glyph_Gradient.png" alt="Instagram"></a>
+                <a href="https://www.tiktok.com/@gamingandmusic__" target="_blank" rel="noopener noreferrer" title="TikTok" aria-label="Follow on TikTok"><img src="images/Logos/TikTok_Icon_Black_Circle.png" alt="TikTok"></a>
+                <a href="https://youtube.com/@gamingandmusic" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="Subscribe on YouTube"><img src="images/Logos/YouTube_Logo.png" alt="YouTube"></a>
+                <a href="mailto:gamingandmusiccontact@gmail.com" title="Email" aria-label="Send Email"><img src="images/Logos/Email_Logo.svg" alt="Email"></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Gamingandmusic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // View switching functionality
+        function switchToDesktop() {
+            localStorage.setItem('viewPreference', 'desktop');
+            window.location.href = 'Music.html';
+        }
+
+        function switchToMobile() {
+            localStorage.setItem('viewPreference', 'mobile');
+            // Stay on mobile
+        }
+
+        window.isLivePage = window.location.pathname.includes('Live.html');
+        window.turnstileRetries = 0;
+        const MAX_TURNSTILE_RETRIES = 3;
+
+        // Cloudflare Turnstile callback
+        window.onTurnstileSuccess = function(token) {
+            console.log('Turnstile verified with token:', token);
+            localStorage.setItem('verified', 'true');
+
+            // Hide modal and show content
+            document.getElementById('verification-modal').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+            document.querySelector('footer').style.display = 'block';
+        };
+
+        // Error handler for Turnstile
+        window.onTurnstileError = function(errorData) {
+            console.error('Turnstile error:', errorData);
+            if (window.turnstileRetries < MAX_TURNSTILE_RETRIES && window.turnstile) {
+                window.turnstileRetries++;
+                console.log('Retrying Turnstile render (attempt ' + window.turnstileRetries + ')');
+                setTimeout(() => {
+                    const widget = document.getElementById('turnstile-widget');
+                    if (widget) {
+                        window.turnstile.render('#turnstile-widget', {
+                            sitekey: '0x4AAAAAAB7gLuZQcG3FQ9fR',
+                            callback: 'onTurnstileSuccess',
+                            'error-callback': 'onTurnstileError',
+                            theme: 'dark',
+                            language: 'auto'
+                        });
+                    }
+                }, 1000);
+            }
+        };
+
+        // Ensure Turnstile loads before showing modal
+        function initTurnstile() {
+            if (window.turnstile) {
+                const widget = document.getElementById('turnstile-widget');
+                if (widget && !widget.hasAttribute('data-rendered')) {
+                    try {
+                        window.turnstile.render('#turnstile-widget', {
+                            sitekey: '0x4AAAAAAB7gLuZQcG3FQ9fR',
+                            callback: 'onTurnstileSuccess',
+                            'error-callback': 'onTurnstileError',
+                            theme: 'dark',
+                            language: 'auto'
+                        });
+                    } catch (e) {
+                        console.error('Error rendering Turnstile:', e);
+                    }
+                }
+            } else {
+                setTimeout(initTurnstile, 500);
+            }
+        }
+
+        // Check verification on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.isLivePage) {
+                const modal = document.getElementById('verification-modal');
+                const container = document.querySelector('.container');
+                const footer = document.querySelector('footer');
+                
+                const isLocalEnvironment = window.location.protocol === 'file:' || 
+                                          window.location.hostname === 'localhost' || 
+                                          window.location.hostname === '127.0.0.1';
+                
+                if (isLocalEnvironment) {
+                    console.log('Local environment detected - bypassing verification');
+                    modal.style.display = 'none';
+                    container.style.display = 'block';
+                    footer.style.display = 'block';
+                } else {
+                    const isVerified = localStorage.getItem('verified') === 'true';
+                    
+                    if (!isVerified) {
+                        modal.style.display = 'flex';
+                        container.style.display = 'none';
+                        footer.style.display = 'none';
+                        initTurnstile();
+                    } else {
+                        modal.style.display = 'none';
+                        container.style.display = 'block';
+                        footer.style.display = 'block';
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- Cloudflare Turnstile Script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" onload="initTurnstile()" onerror="console.error('Failed to load Turnstile')" defer></script>
+    <script src="smooth-transitions.js?v=9"></script>
+</body>
+</html>
