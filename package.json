@@ -11,14 +11,15 @@
     "deploy": "npm run build && wrangler pages deploy build/client"
   },
   "dependencies": {
-    "@remix-run/react": "^2.11.0",
     "@remix-run/cloudflare": "^2.11.0",
     "@remix-run/cloudflare-pages": "^2.11.0",
     "@remix-run/dev": "^2.11.0",
-    "vite": "^5.1.0",
-    "typescript": "^5.3.3",
+    "@remix-run/react": "^2.11.0",
+    "isbot": "^4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
