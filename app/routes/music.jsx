@@ -36,11 +36,11 @@ export const links = () => [
 
 const musicPlatforms = [
   { name: 'Spotify', url: 'https://open.spotify.com/artist/6FcSk3WwFmeXm4ZLoxJr1K', icon: 'Spotify_Logo.png', className: 'spotify' },
-  { name: 'YouTube', url: 'https://youtube.com/@YOUR_CHANNEL', icon: 'YouTube_Logo.png', className: 'youtube' },
-  { name: 'Apple Music', url: 'https://music.apple.com/artist/YOUR_ARTIST_ID', icon: 'Apple_Music_Logo.png', className: 'apple' },
-  { name: 'Tidal', url: 'https://tidal.com/artist/YOUR_ARTIST_ID', icon: 'Tidal_Logo.png', className: 'tidal' },
-  { name: 'Amazon Music', url: 'https://amazon.com/music/YOUR_ARTIST_URL', icon: 'Amazon_Music_Logo.png', className: 'amazon' },
-  { name: 'SoundCloud', url: 'https://soundcloud.com/YOUR_USERNAME', icon: 'SoundCloud_Logo.png', className: 'soundcloud' },
+  { name: 'YouTube', url: 'https://youtube.com/@gamingandmusic.?si=apN0siD7iqiHvbsk', icon: 'YouTube_Logo.png', className: 'youtube' },
+  { name: 'Apple Music', url: 'https://music.apple.com/us/artist/gamingandmusic/1600944407', icon: 'Apple_Music_Logo.png', className: 'apple' },
+  { name: 'Tidal', url: 'https://tidal.com/artist/29803360/u', icon: 'Tidal_Logo.png', className: 'tidal' },
+  { name: 'Amazon Music', url: 'https://music.amazon.com/artists/B09NRXG7ZP/gamingandmusic?ref=dm_ff_amazonmusic.3p', icon: 'Amazon_Music_Logo.png', className: 'amazon' },
+  { name: 'SoundCloud', url: 'https://soundcloud.com/gamingandmuisc?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing', icon: 'SoundCloud_Logo.png', className: 'soundcloud' },
 ];
 
 export default function Music() {
