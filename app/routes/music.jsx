@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react';
 import Footer from '~/components/Footer';
-import musicStyles from './music.css?url';
+import musicStyles from '~/styles/music.css?url';
 
 export const meta = () => [
   { title: 'Music | Gamingandmusic - Listen on All Platforms' },

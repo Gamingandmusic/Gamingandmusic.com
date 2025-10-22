@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react';
 import Footer from '~/components/Footer';
-import notFoundStyles from './not-found.css?url';
+import notFoundStyles from '~/styles/not-found.css?url';
 
 export const meta = () => [
   { title: '404 - Page Not Found' },

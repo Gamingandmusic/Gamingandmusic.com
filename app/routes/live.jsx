@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import Footer from '~/components/Footer';
-import liveStyles from './live.css?url';
+import liveStyles from '~/styles/live.css?url';
 
 export const meta = () => [
   { title: 'Live Stream | Gamingandmusic' },

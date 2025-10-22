@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react';
 import Footer from '~/components/Footer';
-import avatarStyles from './avatar.css?url';
+import avatarStyles from '~/styles/avatar.css?url';
 
 export const meta = () => [
   { title: 'Avatar Work | Gamingandmusic - Commission Custom Artwork' },

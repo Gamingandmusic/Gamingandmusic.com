@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react';
 import Footer from '~/components/Footer';
-import indexStyles from './index.css?url';
+import indexStyles from '~/styles/index.css?url';
 
 export const meta = () => [
   { title: 'Gamingandmusic - Independent Music Artist' },
