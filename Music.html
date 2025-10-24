@@ -687,12 +687,12 @@
         }
 
         window.isLivePage = window.location.pathname.includes('Live.html');
-        window.turnstileRetries = 0;
-        const MAX_TURNSTILE_RETRIES = 3;
+        let turnstileInitialized = false;
+        let turnstileInitTimer = null;
 
         // Cloudflare Turnstile callback
         window.onTurnstileSuccess = function(token) {
-            console.log('Turnstile verified with token:', token);
+            console.log('Turnstile verified successfully');
             localStorage.setItem('verified', 'true');
 
             // Hide modal and show content
@@ -704,30 +704,18 @@
         // Error handler for Turnstile
         window.onTurnstileError = function(errorData) {
             console.error('Turnstile error:', errorData);
-            // Retry loading Turnstile for mobile Safari compatibility
-            if (window.turnstileRetries < MAX_TURNSTILE_RETRIES && window.turnstile) {
-                window.turnstileRetries++;
-                console.log('Retrying Turnstile render (attempt ' + window.turnstileRetries + ')');
-                setTimeout(() => {
-                    const widget = document.getElementById('turnstile-widget');
-                    if (widget) {
-                        window.turnstile.render('#turnstile-widget', {
-                            sitekey: '0x4AAAAAAB7gLuZQcG3FQ9fR',
-                            callback: 'onTurnstileSuccess',
-                            'error-callback': 'onTurnstileError',
-                            theme: 'dark',
-                            language: 'auto'
-                        });
-                    }
-                }, 1000);
-            }
         };
 
         // Ensure Turnstile loads before showing modal
         function initTurnstile() {
+            // Prevent multiple simultaneous initializations
+            if (turnstileInitialized || turnstileInitTimer) {
+                return;
+            }
+            
             if (window.turnstile) {
                 const widget = document.getElementById('turnstile-widget');
-                if (widget && !widget.hasAttribute('data-rendered')) {
+                if (widget) {
                     try {
                         window.turnstile.render('#turnstile-widget', {
                             sitekey: '0x4AAAAAAB7gLuZQcG3FQ9fR',
@@ -736,13 +724,15 @@
                             theme: 'dark',
                             language: 'auto'
                         });
+                        turnstileInitialized = true;
+                        if (turnstileInitTimer) clearTimeout(turnstileInitTimer);
                     } catch (e) {
                         console.error('Error rendering Turnstile:', e);
                     }
                 }
             } else {
                 // Retry if turnstile isn't loaded yet
-                setTimeout(initTurnstile, 500);
+                turnstileInitTimer = setTimeout(initTurnstile, 500);
             }
         }
 
@@ -786,8 +776,8 @@
         });
     </script>
 
-    <!-- Cloudflare Turnstile Script - Mobile Safari fix -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" onload="initTurnstile()" onerror="console.error('Failed to load Turnstile')" defer></script>
+    <!-- Cloudflare Turnstile Script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async></script>
     <script src="smooth-transitions.js?v=9"></script>
 </body>
 </html>
