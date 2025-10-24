@@ -29,6 +29,15 @@
         gtag('config', 'G-L8TX5ZTQFQ');
     </script>
 
+    <!-- Suppress EME robustness warning from YouTube -->
+    <script>
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            if (args[0]?.includes?.('robustness level')) return;
+            originalWarn.apply(console, args);
+        };
+    </script>
+
     <style>
         * {
             scroll-behavior: smooth;
@@ -494,22 +503,22 @@
             <h3>Videos</h3>
             
             <div class="embed-container youtube">
-                <iframe src="https://www.youtube.com/embed/FUZHxLHLnyw?si=WR1I9po5n_yjnO5z" title="YouTube video player - Gamingandmusic" frameborder="0" 
+                <iframe src="https://www.youtube.com/embed/FUZHxLHLnyw?si=WR1I9po5n_yjnO5z" title="YouTube video player - Gamingandmusic" frameborder="0" sandbox="allow-scripts allow-same-origin allow-presentation"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
 
             <div class="embed-container youtube">
-                <iframe src="https://www.youtube-nocookie.com/embed/OOBTOPp4Rvg?si=bLn1rPUTf97kVnRH" title="YouTube video player - Gamingandmusic" frameborder="0" 
+                <iframe src="https://www.youtube-nocookie.com/embed/OOBTOPp4Rvg?si=bLn1rPUTf97kVnRH" title="YouTube video player - Gamingandmusic" frameborder="0" sandbox="allow-scripts allow-same-origin allow-presentation"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
 
             <div class="embed-container youtube">
-                <iframe src="https://www.youtube-nocookie.com/embed/y4iHxbuYBAg?si=uC_1b6KKCZLJhbLj" title="YouTube video player - Gamingandmusic" frameborder="0" 
+                <iframe src="https://www.youtube-nocookie.com/embed/y4iHxbuYBAg?si=uC_1b6KKCZLJhbLj" title="YouTube video player - Gamingandmusic" frameborder="0" sandbox="allow-scripts allow-same-origin allow-presentation"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
 
             <div class="embed-container youtube">
-                <iframe src="https://www.youtube-nocookie.com/embed/YWTLvUBRNRc?si=WPc3RCug_HuWcKjZ" title="YouTube video player - Gamingandmusic" frameborder="0" 
+                <iframe src="https://www.youtube-nocookie.com/embed/YWTLvUBRNRc?si=WPc3RCug_HuWcKjZ" title="YouTube video player - Gamingandmusic" frameborder="0" sandbox="allow-scripts allow-same-origin allow-presentation"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
         </div>
@@ -519,8 +528,7 @@
             <h3>Artist Profile</h3>
             
             <div class="embed-container spotify">
-                <iframe src="https://open.spotify.com/embed/artist/6FcSk3WwFmeXm4ZLoxJr1K?utm_source=generator" title="Spotify artist profile" frameBorder="0" allowfullscreen="" 
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe src="https://open.spotify.com/embed/artist/6FcSk3WwFmeXm4ZLoxJr1K?utm_source=generator" title="Spotify artist profile" frameborder="0" sandbox="allow-scripts allow-same-origin allow-popups allow-presentation" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
         </div>
     </div>

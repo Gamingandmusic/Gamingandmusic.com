@@ -121,6 +121,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Suppress Spotify EME robustness warnings (non-critical)
+const originalWarn = console.warn;
+console.warn = function(...args) {
+    if (args.length > 0 && args[0] && args[0].toString && 
+        args[0].toString().includes('robustness')) {
+        return;
+    }
+    originalWarn.apply(console, args);
+};
+
 // Add ripple effect styles dynamically with mobile optimizations
 const style = document.createElement('style');
 style.textContent = `
