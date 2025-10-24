@@ -35,46 +35,12 @@ export const links = () => [
 ];
 
 export default function Live() {
-  useEffect(() => {
-    // Load Turnstile script for verification
-    const script = document.createElement('script');
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-    script.defer = true;
-    script.onload = initTurnstile;
-    script.onerror = () => console.error('Failed to load Turnstile');
-    document.head.appendChild(script);
-  }, []);
-
-  const initTurnstile = () => {
-    if (window.turnstile) {
-      const widget = document.getElementById('turnstile-widget');
-      if (widget && !widget.hasAttribute('data-rendered')) {
-        try {
-          window.turnstile.render('#turnstile-widget', {
-            sitekey: '0x4AAAAAAB7gLuZQcG3FQ9fR',
-            callback: 'onTurnstileSuccess',
-            'error-callback': 'onTurnstileError',
-            theme: 'dark',
-            language: 'auto',
-          });
-        } catch (e) {
-          console.error('Error rendering Turnstile:', e);
-        }
-      }
-    } else {
-      setTimeout(initTurnstile, 500);
-    }
+  window.onTurnstileSuccess = function(token) {
+    console.log('Turnstile verified:', token);
   };
 
   window.onTurnstileError = function(errorData) {
     console.error('Turnstile error:', errorData);
-    if (!window.turnstileRetries) {
-      window.turnstileRetries = 0;
-    }
-    if (window.turnstileRetries < 3 && window.turnstile) {
-      window.turnstileRetries++;
-      setTimeout(initTurnstile, 1000);
-    }
   };
 
   return (

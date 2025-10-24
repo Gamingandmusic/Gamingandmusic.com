@@ -33,6 +33,11 @@ export default function App() {
         <Meta />
         <Links />
         <script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+          async
+          defer
+        ></script>
+        <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-L8TX5ZTQFQ"
         ></script>
