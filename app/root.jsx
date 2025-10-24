@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  LiveReload,
 } from '@remix-run/react';
 import rootStyles from './root.css?url';
 
@@ -49,6 +50,7 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
+        {process.env.NODE_ENV === 'development' && <LiveReload />}
       </body>
     </html>
   );
