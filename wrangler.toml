@@ -1,9 +1,6 @@
 name = "gamingandmusic"
+pages_build_output_dir = "/"
 
 [build]
 command = ""
 cwd = "./"
-watch_paths = []
-
-[build.upload]
-format = "modules"
