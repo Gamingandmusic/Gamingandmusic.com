@@ -14,7 +14,6 @@ export default function handleRequest(
   const userAgent = request.headers.get("User-Agent");
   const isBot = userAgent && isbot(userAgent);
 
-  // Use renderToString for all requests
   const body = renderToString(
     <RemixServer context={remixContext} url={request.url} />
   );
