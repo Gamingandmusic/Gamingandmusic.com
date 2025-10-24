@@ -1,13 +1,9 @@
 name = "gamingandmusic"
-type = "site"
-
-[env.production]
-route = "gamingandmusic.github.io/*"
-zone_id = ""
 
 [build]
 command = ""
 cwd = "./"
+watch_paths = []
 
 [build.upload]
-format = "service-worker"
+format = "modules"
