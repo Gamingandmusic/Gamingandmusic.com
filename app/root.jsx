@@ -1,3 +1,4 @@
+// Root component - Main application layout
 import { useEffect } from 'react';
 import {
   Links,
