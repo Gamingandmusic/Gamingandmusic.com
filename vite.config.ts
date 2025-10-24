@@ -19,6 +19,25 @@ export default defineConfig({
         v3_relativeSplatPath: true,
         v3_throwAbortReason: true,
       },
+      serverModuleFormat: "esm",
     }),
   ],
+  optimizeDeps: {
+    include: ['react-dom/server'],
+    esbuildOptions: {
+      // Node.js global to browser globalThis
+      define: {
+        global: 'globalThis',
+      },
+    },
+  },
+  server: {
+    hmr: {
+      overlay: true,
+    },
+  },
+  ssr: {
+    // Fix for CommonJS modules in SSR
+    noExternal: ['react-dom/server'],
+  },
 });
