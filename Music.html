@@ -609,11 +609,11 @@
     </div>
 
     <!-- Cloudflare Turnstile Verification Modal -->
-    <div id="verification-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+    <div id="verification-modal" name="verification-modal" role="dialog" aria-label="Verification modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem;">
         <div style="text-align: center; color: white; padding: clamp(1.5rem, 5vw, 40px); width: 100%; max-width: 500px; background: rgba(30,30,30,0.9); border-radius: 12px; border: 2px solid #ff0000;">
             <h2 style="margin: 0 0 0.5rem 0; font-size: clamp(1.5rem, 6vw, 2rem);">Verify You're Human</h2>
             <p style="margin: 0 0 1.5rem 0; font-size: clamp(0.95rem, 4vw, 1rem); color: #ccc;">Complete the verification below to continue</p>
-            <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAAB7gLuZQcG3FQ9fR" data-callback="onTurnstileSuccess" data-theme="dark" data-language="auto" style="display: flex; justify-content: center; margin: 1.5rem auto;"></div>
+            <div id="turnstile-widget" name="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAAB7gLuZQcG3FQ9fR" data-callback="onTurnstileSuccess" data-theme="dark" data-language="auto" style="display: flex; justify-content: center; margin: 1.5rem auto;" role="region" aria-label="Turnstile verification widget"></div>
         </div>
     </div>
 
