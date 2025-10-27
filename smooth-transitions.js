@@ -103,9 +103,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
-                // Check if href is an external navigation or Live.html
-                const href = this.getAttribute('href');
-                if (href && (href.includes('Live.html') || href.includes('http'))) {
+                const href = this.href;
+                
+                // Don't transition to Live.html
+                if (href.includes('Live.html')) {
                     return;
                 }
 
