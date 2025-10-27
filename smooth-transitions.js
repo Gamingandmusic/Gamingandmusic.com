@@ -92,43 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Smooth page transition on link click (for internal navigation)
-    const isLivePage = window.location.pathname.includes('Live.html');
-    
-    if (!isLivePage) {
-        document.querySelectorAll('a[href$=".html"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                // Allow external links to work normally
-                if (this.target === '_blank' || this.href.includes('http') || this.href.includes('://')) {
-                    return;
-                }
 
-                const href = this.href;
-                
-                // Don't transition to Live.html
-                if (href.includes('Live.html')) {
-                    return;
-                }
-
-                e.preventDefault();
-
-                // Respect prefers-reduced-motion
-                if (prefersReducedMotion) {
-                    window.location.href = href;
-                    return;
-                }
-
-                // Fade out current page
-                document.body.style.opacity = '0';
-                document.body.style.transition = 'opacity 0.4s ease-out';
-
-                // Navigate after fade out
-                setTimeout(() => {
-                    window.location.href = href;
-                }, 400);
-            });
-        });
-    }
 });
 
 // Suppress Spotify EME robustness warnings (non-critical)
