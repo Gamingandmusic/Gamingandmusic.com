@@ -104,92 +104,9 @@
                 padding-top: 10px;
             }
         }
-        /* Footer Styles */
-        footer {
-            background: #1a1a1a;
-            border-top: 3px solid #ff0000;
-            padding: 4vh 2vw;
-            margin-top: 8vh;
-            text-align: center;
-            animation: slideUp 0.8s ease-out 0.8s both;
-            width: 100%;
-        }
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
         @keyframes rainbowSlide {
             0% { background-position: 0% 50%; }
             100% { background-position: 600% 50%; }
-        }
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2vw;
-            flex-wrap: wrap;
-            margin-bottom: 2vh;
-        }
-        .footer-links a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.2vw;
-            transition: color 0.3s ease;
-        }
-        .footer-links a:hover {
-            color: #ff0000;
-        }
-        .footer-divider {
-            width: 80%;
-            height: 1px;
-            background: #333;
-            margin: 2vh auto;
-        }
-        .footer-bottom {
-            font-size: 0.9vw;
-            color: #999;
-        }
-        .footer-bottom p {
-            margin: 0.5vh 0;
-        }
-        @media (max-width: 768px) {
-            footer {
-                padding: 3vh 2vw;
-                margin-top: 5vh;
-            }
-            .footer-links {
-                gap: 1.5vw;
-            }
-            .footer-links a {
-                font-size: 1.5vw;
-            }
-            .footer-bottom {
-                font-size: 1.2vw;
-            }
-        }
-        @media (max-width: 480px) {
-            footer {
-                padding: 2vh 1vw;
-            }
-            .footer-links {
-                gap: 1vw;
-                flex-direction: column;
-            }
-            .footer-links a {
-                font-size: 2vw;
-            }
-            .footer-bottom {
-                font-size: 1.5vw;
-            }
         }
     </style>
 </head>
