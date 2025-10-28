@@ -1,19 +1,8 @@
-# wrangler.toml
-
-# Redirect /Avatar to /
-[[redirects]]
-  from = "/Avatar"
-  to = "/"
-  status_code = 301
+# Redirect /Avatar to the root
+/Avatar / 301
 
 # Redirect /Music-mobile to /music/mobile/
-[[redirects]]
-  from = "/Music-mobile"
-  to = "/music/mobile/"
-  status_code = 301
+/Music-mobile /music/mobile/ 301
 
 # Redirect /Music to /music/
-[[redirects]]
-  from = "/Music"
-  to = "/music/"
-  status_code = 301
+/Music /music/ 301
